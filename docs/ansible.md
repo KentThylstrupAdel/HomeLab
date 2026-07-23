@@ -10,8 +10,8 @@ IP Address:
 
 - 192.168.86.248
 
-Installed through DistroBox 
-- distrobox enter ansible-box
+Installed through DistroBox as:
+- ansible-box
 
 ## Managed Hosts
 
