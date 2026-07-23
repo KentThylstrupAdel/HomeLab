@@ -59,8 +59,7 @@ Worker Node"]
 This was a terrible idea for distro, as the OS-Core is read only, so all apps I need, need to be in containers, in this case DistroBox
 - Daily workstation
 - Runs Ansible
-- SSH access to infrastructure
-    - Public key copied to servers, to enable seemless SSH conectivity
+- SSH access to infrastructure with public/private key set up
 - Used for cluster management
 
 ### cluster-plane-01
