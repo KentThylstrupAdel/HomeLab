@@ -76,7 +76,7 @@ Worker Node"]
 
 ---
 
-## Future Expansion
+## Future Expansion as proposed by the incredible internet!
 
 Planned additions:
 
