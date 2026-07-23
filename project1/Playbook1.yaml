@@ -1,28 +1,38 @@
 ---
-- name: Install and Configure Nginx
-  hosts: mgmt
-  become: yes
+- name: Update and upgrade Ubuntu servers
+  hosts: ubuntu_servers
+  become: true
+  gather_facts: true
+
   tasks:
-    - name Install Nginx
-      apt:
-        name: nginx
-        state: present
+    - name: Update APT package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
 
-    - name: Remove default Nginx configuraton file
-      file:
-        path: /etc/nginx/sites-enabled/default
-        state: absent
+    - name: Upgrade all installed packages
+      ansible.builtin.apt:
+        upgrade: dist
 
-    - name: Add Costum Nginx configuration file
-      template:
-        stc: /path/to/your/nginx-config.conf.j2
-        dest: /etc/nginx/sityes-available/my-nginx-config
-        owner: root
-        group: root
-        moe: '0644'
+    - name: Remove unused packages
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
 
-    - name: Enable costum Nginx configuration
-      file:
-        src: /etc/nginx/sites-available/my-nginx-config
-        dest: /etc/nginx/sites-enabled/
-        state: link
+    - name: Clean APT cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: Check if reboot is required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: Reboot server if required
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible after updates."
+        reboot_timeout: 600
+        connect_timeout: 10
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+      when: reboot_required.stat.exists
