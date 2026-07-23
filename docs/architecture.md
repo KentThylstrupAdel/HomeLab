@@ -60,6 +60,7 @@ This was a terrible idea for distro, as the OS-Core is read only, so all apps I 
 - Daily workstation
 - Runs Ansible
 - SSH access to infrastructure
+    - Public key copied to servers, to enable seemless SSH conectivity
 - Used for cluster management
 
 ### cluster-plane-01
