@@ -2,6 +2,7 @@
 - name: Update and upgrade Ubuntu servers
   hosts: mgmt
   become: true
+  serial: 1
   gather_facts: true
 
   tasks:
