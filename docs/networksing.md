@@ -17,6 +17,7 @@
 ## SSH Access
 
 The Bazzite workstation acts as the management host and connects to all servers using SSH.
+Public/Private key has been established and installed for ease of access.
 
 ```text
 Bazzite
