@@ -24,6 +24,7 @@ flowchart LR
         BZ["💻
 Bazzite Linux
 192.168.86.248
+DistroBox
 
 Ansible Controller"]
 
