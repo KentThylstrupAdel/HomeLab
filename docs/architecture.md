@@ -55,7 +55,7 @@ Worker Node"]
 ## Components
 
 ### Bazzite Linux
-####This was a terrible idea for distro, as the OS-Core is read only, so all apps I need, need to be in containers, in this case DistroBox ####
+This was a terrible idea for distro, as the OS-Core is read only, so all apps I need, need to be in containers, in this case DistroBox ####
 - Daily workstation
 - Runs Ansible
 - SSH access to infrastructure
