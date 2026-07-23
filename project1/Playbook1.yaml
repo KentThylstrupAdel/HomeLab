@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade Ubuntu servers
-  hosts: ubuntu_servers
+  hosts: mgmt
   become: true
   gather_facts: true
 
