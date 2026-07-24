@@ -1,0 +1,4 @@
+---
+- name: Monitoring role placeholder
+  ansible.builtin.debug:
+    msg: "Monitoring setup goes here."
