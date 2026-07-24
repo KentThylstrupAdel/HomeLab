@@ -1,0 +1,6 @@
+---
+- name: Bootstrap new servers
+  hosts: ubuntu_servers
+
+  roles:
+    - common
