@@ -1,0 +1,6 @@
+---
+- name: Update Ubuntu Servers
+  hosts: ubuntu_servers
+  serial: 1
+  roles:
+    - common
