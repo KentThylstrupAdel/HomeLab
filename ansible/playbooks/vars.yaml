@@ -1,0 +1,4 @@
+# vars.yml for later use of variables. Below is currently simply an example.
+---
+username: kent
+password: "{{ 'Passw0rd1' | password_hash('sha512') }}"
