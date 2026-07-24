@@ -1,0 +1,4 @@
+---
+- name: Docker role placeholder
+  ansible.builtin.debug:
+    msg: "Docker installation goes here."
