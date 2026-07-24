@@ -1,5 +1,11 @@
-[mgmt]
+[cluster]
 cluster-plane-01 ansible_host=192.168.86.100 ansible_user=kent
+node-02 ansible_host=192.168.86.160 ansible_user=kent
+
+[management]
+cluster-plane-01 ansible_host=192.168.86.100 ansible_user=kent
+
+[workers]
 node-02 ansible_host=192.168.86.160 ansible_user=kent
 
 # This is the default ansible 'hosts' file.
