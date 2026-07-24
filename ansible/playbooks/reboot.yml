@@ -1,0 +1,10 @@
+---
+- name: Reboot all Ubuntu servers
+  hosts: ubuntu_servers
+  serial: 1
+
+  tasks:
+
+    - name: Reboot
+      ansible.builtin.reboot:
+        reboot_timeout: 600
