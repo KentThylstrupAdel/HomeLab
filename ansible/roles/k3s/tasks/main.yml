@@ -1,0 +1,4 @@
+---
+- name: k3s role placeholder
+  ansible.builtin.debug:
+    msg: "k3s installation goes here."
