@@ -36,7 +36,7 @@ This provides immediate feedback to the developer while reducing the likelihood 
 ## CI Pipeline
 
 <p align="center">
-  <img src="images/ci-cd-pipeline.png"
+  <img src="images/continuous-integration.png"
        alt="Continuous Integration Pipeline"
        width="950">
 </p>
