@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-demo
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/KentThylstrupAdel/HomeLab.git
+    targetRevision: main
+    path: charts/nginx-demo
+
+    helm:
+      releaseName: nginx-demo
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-demo
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
