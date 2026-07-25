@@ -1,0 +1,11 @@
+- hosts: cluster-plane-01
+  become: true
+
+  tasks:
+    - name: Install ingress-nginx
+      kubernetes.core.helm:
+        name: ingress-nginx
+        chart_ref: ingress-nginx/ingress-nginx
+        release_namespace: ingress-nginx
+        create_namespace: true
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
