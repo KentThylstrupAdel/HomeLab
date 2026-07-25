@@ -81,11 +81,15 @@ This was a terrible idea for distro, as the OS-Core is read only, so all apps I 
 
 Planned additions:
 
-- [ ] Longhorn
+- [ ] installerer Docker
+- [x] installerer k3s
+- [ ] installerer cert-manager
+- [ ] opretter brugere
+- [ ] sætter SSH op
+- [ ] deployer manifests
 - [ ] MetalLB
 - [ ] Traefik
 - [ ] cert-manager
-- [ ] Argo CD
 - [ ] Prometheus
 - [ ] Grafana
 - [ ] Loki
