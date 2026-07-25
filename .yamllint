@@ -14,3 +14,6 @@ rules:
       - "true"
       - "false"
       - "on"
+
+ignore: |
+  charts/nginx-demo/templates/
