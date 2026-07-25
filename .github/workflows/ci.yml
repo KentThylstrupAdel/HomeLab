@@ -1,0 +1,27 @@
+name: Homelab CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+
+jobs:
+
+  ansible:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install ansible -y
+
+      - name: Syntax check
+        run: |
+          ansible-playbook playbooks/update.yml --syntax-check
