@@ -24,7 +24,7 @@ This homelab was created to develop practical experience in:
 
 ## Architecture
 
-> **Architecture diagram coming soon**
+![Platform Engineering Homelab Architecture](docs/images/platform-architecture.png)
 
 The platform follows a GitOps deployment model where Git acts as the single source of truth.
 
