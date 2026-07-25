@@ -1,115 +1,134 @@
-# Platform Engineering Homelab
+# Overview
 
-## Overview
+## Purpose
 
-This repository contains my personal Platform Engineering homelab, created to gain practical experience with modern infrastructure management, Kubernetes, Infrastructure as Code, and GitOps.
+The purpose of this repository is to demonstrate practical Platform Engineering skills through the design, implementation, and operation of a self-managed homelab environment.
 
-The project is designed to simulate a simplified enterprise platform where infrastructure, application deployment, and configuration are managed through version-controlled code rather than manual administration.
+Rather than focusing on individual technologies, the project explores how modern infrastructure components integrate into a maintainable platform using Infrastructure as Code, Continuous Integration, and GitOps principles.
 
-The primary objective has been to deepen my understanding of technologies commonly used within Platform Engineering while following engineering practices similar to those used in professional environments.
-
----
-
-# Objectives
-
-The homelab focuses on the following engineering disciplines:
-
-- Linux system administration
-- Infrastructure as Code (Ansible)
-- Kubernetes cluster administration
-- Helm package management
-- GitHub Actions Continuous Integration (CI)
-- Argo CD Continuous Delivery (CD)
-- GitOps workflows
-- Infrastructure documentation
-- Version-controlled configuration management
+The repository serves both as a personal learning project and as a technical portfolio demonstrating engineering practices commonly found in professional Platform Engineering teams.
 
 ---
 
-# Technology Stack
+## Scope
 
-| Technology | Purpose |
-|------------|---------|
-| Linux | Operating system |
-| Git & GitHub | Source control |
-| GitHub Actions | Continuous Integration |
-| Ansible | Infrastructure automation |
-| Kubernetes (k3s) | Container orchestration |
-| Helm | Kubernetes package management |
-| Argo CD | GitOps Continuous Delivery |
-| Grafana | Monitoring and dashboards |
+The current platform includes:
 
----
+* Infrastructure automation with Ansible
+* Kubernetes orchestration using k3s
+* Helm-based application deployment
+* Continuous Integration using GitHub Actions
+* GitOps deployments with Argo CD
+* Platform monitoring using Grafana
+* Version-controlled infrastructure and documentation
 
-# High-Level Architecture
-
-```text
-Developer
-     │
-     ▼
-Git Repository
-     │
-     ▼
-GitHub Actions
-     │
-     ├── YAML Validation
-     ├── Ansible Syntax Validation
-     └── Helm Validation
-     │
-     ▼
-Argo CD
-     │
-     ▼
-Kubernetes Cluster
-     │
-     ▼
-Applications
-```
+The project intentionally focuses on technologies that are widely adopted in enterprise environments while remaining practical to operate within a homelab.
 
 ---
 
-# CI/CD Workflow
+## Project Objectives
 
-Every change begins as a Git commit.
+The primary objectives of the project are to:
 
-GitHub Actions automatically validates the repository by checking YAML formatting, Ansible playbooks, and Helm charts.
-
-Once validation succeeds, Argo CD continuously compares the desired state stored in Git with the Kubernetes cluster and automatically reconciles any differences.
-
-This follows a GitOps deployment model where Git is the single source of truth.
-
----
-
-# Current Capabilities
-
-- Multi-node Kubernetes cluster
-- Infrastructure automation using Ansible
-- Helm chart development
-- GitHub Actions CI pipeline
-- Automated GitOps deployments using Argo CD
-- Grafana monitoring
-- Infrastructure documentation
+* Build a reproducible platform using Infrastructure as Code.
+* Gain practical experience with Kubernetes administration.
+* Automate infrastructure provisioning and configuration.
+* Implement Continuous Integration for configuration validation.
+* Deploy applications using GitOps principles.
+* Improve operational visibility through monitoring.
+* Document architectural decisions and implementation details.
 
 ---
 
-# Future Improvements
+## Engineering Principles
 
-Planned additions include:
+The platform is designed around several core engineering principles.
 
-- Terraform
-- Prometheus
-- Alertmanager
-- cert-manager
-- External Secrets / HashiCorp Vault
-- Network Policies
-- High Availability Kubernetes
-- Backup and disaster recovery
-- Container image build pipeline
+### Infrastructure as Code
+
+Infrastructure configuration should be defined as code and stored in version control to ensure repeatability, transparency, and auditability.
+
+### Git as the Source of Truth
+
+All infrastructure definitions, Kubernetes manifests, Helm charts, and automation are maintained in Git. Changes are introduced through commits rather than manual configuration.
+
+### Automation First
+
+Whenever practical, repetitive administrative tasks are automated using Ansible or Kubernetes-native tooling.
+
+Automation reduces configuration drift and improves consistency across environments.
+
+### Continuous Validation
+
+Every change committed to the repository is validated automatically before becoming part of the platform.
+
+This helps identify configuration errors early and encourages small, incremental changes.
+
+### GitOps
+
+Application deployment is managed declaratively through Argo CD.
+
+The desired platform state is defined within the repository, while Argo CD continuously reconciles the running environment with that desired state.
+
+### Documentation as Code
+
+Documentation is maintained alongside the infrastructure.
+
+Architectural decisions, deployment procedures, and operational practices evolve together with the platform instead of being maintained separately.
 
 ---
 
-# Purpose of this Repository
+## Why This Project Exists
 
-This repository serves both as a learning project and as a demonstration of practical Platform Engineering skills.
+This repository was created to move beyond isolated technology demonstrations and instead build a cohesive engineering platform.
 
-Rather than focusing solely on individual technologies, the project emphasizes how multiple tools integrate into a coherent engineering platform following modern DevOps and GitOps practices.
+Many tutorials explain how to install Kubernetes, deploy applications, or configure automation independently. Professional Platform Engineering, however, requires these technologies to work together as a unified system.
+
+The homelab therefore focuses on understanding the relationships between infrastructure automation, Kubernetes, Continuous Integration, GitOps, and monitoring rather than treating each technology as an isolated subject.
+
+---
+
+## Intended Audience
+
+This documentation is intended for:
+
+* Recruiters evaluating technical experience.
+* Hiring managers reviewing engineering projects.
+* Technical interviewers interested in implementation details.
+* Anyone interested in modern Platform Engineering practices.
+
+---
+
+## Repository Documentation
+
+The repository documentation is organized into focused topics.
+
+| Document                                 | Description                                              |
+| ---------------------------------------- | -------------------------------------------------------- |
+| [02-architecture.md](02-architecture.md) | Overall platform architecture and component interactions |
+| [03-kubernetes.md](03-kubernetes.md)     | Kubernetes cluster design and operation                  |
+| [04-ansible.md](04-ansible.md)           | Infrastructure automation using Ansible                  |
+| [05-ci-cd.md](05-ci-cd.md)               | Continuous Integration workflows                         |
+| [06-gitops.md](06-gitops.md)             | GitOps deployment model using Argo CD                    |
+| [07-monitoring.md](07-monitoring.md)     | Monitoring and observability                             |
+| [08-roadmap.md](08-roadmap.md)           | Planned improvements and future development              |
+
+---
+
+## Design Philosophy
+
+This project intentionally prioritizes:
+
+* Simplicity over unnecessary complexity.
+* Automation over manual administration.
+* Reproducibility over one-time configuration.
+* Documentation over tribal knowledge.
+* Incremental improvement over complete redesigns.
+
+The platform is expected to evolve over time while remaining maintainable, understandable, and reproducible.
+
+---
+
+## Related Documentation
+
+The next document in this series is **[Architecture](02-architecture.md)**, which describes the overall design of the platform and how the individual components interact.
