@@ -1,3 +1,4 @@
+---
 - hosts: cluster-plane-01
   become: true
 

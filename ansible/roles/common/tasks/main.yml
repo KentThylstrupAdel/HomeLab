@@ -1,7 +1,7 @@
 ---
 - name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
 
 - name: Upgrade packages
@@ -10,12 +10,12 @@
 
 - name: Remove unused packages
   ansible.builtin.apt:
-    autoremove: yes
-    purge: yes
+    autoremove: true
+    purge: true
 
 - name: Clean apt cache
   ansible.builtin.apt:
-    autoclean: yes
+    autoclean: true
 
 - name: Check whether reboot is required
   ansible.builtin.stat:
