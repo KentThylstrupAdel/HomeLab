@@ -1,98 +1,206 @@
-# Homelab Architecture
+# Architecture
 
 ## Overview
 
-This document describes the current architecture of my homelab.
+This document describes the architecture of the Platform Engineering homelab and how the individual components interact to provide a modern Infrastructure as Code and GitOps workflow.
 
-## Infrastructure
-
-| Hostname | Operating System | IP Address | Role |
-|----------|------------------|------------|------|
-| Bazzite Workstation | Bazzite Linux | 192.168.86.248 | Workstation & Ansible Controller |
-| cluster-plane-01 | Ubuntu Server | 192.168.86.100 | Kubernetes (k3s) Control Plane |
-| node-02 | Ubuntu Server | 192.168.86.160 | Kubernetes (k3s) Worker Node |
+The environment is intentionally designed to resemble a simplified enterprise platform rather than a collection of standalone servers. Configuration, validation and application deployment are all managed through version-controlled code.
 
 ---
 
-## Architecture Diagram
+# Architecture Principles
+
+The platform is built around the following principles:
+
+- Infrastructure as Code
+- Git as the single source of truth
+- Automated validation through Continuous Integration
+- GitOps-based Continuous Delivery
+- Kubernetes-native application deployment
+- Reproducible infrastructure
+
+---
+
+# High-Level Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
 
-    subgraph LAN["Home Network (192.168.86.0/24)"]
+    DEV["Developer"]
 
-        BZ["💻
-Bazzite Linux
-192.168.86.248
-DistroBox
+    GIT["GitHub Repository"]
 
-Ansible Controller"]
+    CI["GitHub Actions
+CI Pipeline"]
 
-        subgraph K3S["Kubernetes Cluster (k3s)"]
+    ARGO["Argo CD"]
 
-            CP["🖥️
-cluster-plane-01
-192.168.86.100
+    K8S["k3s Kubernetes Cluster"]
 
-Control Plane"]
+    APP["Applications"]
 
-            N2["🖥️
-node-02
-192.168.86.160
-
-Worker Node"]
-
-            CP <-->|Cluster Communication| N2
-        end
-
-        BZ -->|SSH / Ansible| CP
-        BZ -->|SSH / Ansible| N2
-
-    end
+    DEV --> GIT
+    GIT --> CI
+    CI -->|Validation| GIT
+    GIT --> ARGO
+    ARGO --> K8S
+    K8S --> APP
 ```
 
 ---
 
-## Components
+# Infrastructure
 
-### Bazzite Linux
-This was a terrible idea for distro, as the OS-Core is read only, so all apps I need, need to be in containers, in this case DistroBox
-- Daily workstation
-- Runs Ansible
-- SSH access to infrastructure with public/private key set up
-- Used for cluster management
+```mermaid
+flowchart LR
 
-### cluster-plane-01
+    subgraph Workstation
 
-- Ubuntu Server
-- k3s Control Plane
-- Kubernetes API Server
-- Cluster management
+        BZ["Bazzite Linux
 
-### node-02
+Ansible
+kubectl
+Helm
+Git"]
 
-- Ubuntu Server
-- k3s Worker Node
-- Runs Kubernetes workloads
+    end
+
+    subgraph Kubernetes Cluster
+
+        CP["Control Plane"]
+
+        W1["Worker Node"]
+
+        CP <-->|Cluster Communication| W1
+
+    end
+
+    BZ -->|SSH| CP
+    BZ -->|SSH| W1
+```
 
 ---
 
-## Future Expansion as proposed by the incredible internet!
+# Platform Components
 
-Planned additions:
+## Development Workstation
 
-- [ ] installerer Docker
-- [x] installerer k3s
-- [ ] installerer cert-manager
-- [ ] opretter brugere
-- [ ] sætter SSH op
-- [ ] deployer manifests
-- [ ] MetalLB
-- [ ] Traefik
-- [ ] cert-manager
-- [ ] Prometheus
-- [ ] Grafana
-- [ ] Loki
-- [ ] Pi-hole
-- [ ] NAS
-- [ ] GitHub Actions
+The workstation acts as the engineering workstation from which the platform is managed.
+
+Responsibilities include:
+
+- Git development
+- Infrastructure automation using Ansible
+- Kubernetes administration
+- Helm chart development
+- Git repository management
+
+Although the workstation runs Bazzite Linux, all engineering tooling is executed inside a Distrobox container, providing an isolated and reproducible development environment.
+
+---
+
+## Kubernetes Cluster
+
+The Kubernetes cluster provides the runtime platform for applications.
+
+The current cluster consists of:
+
+- One control plane
+- One worker node
+
+The cluster hosts:
+
+- Argo CD
+- Grafana
+- Monitoring components
+- Demonstration workloads
+
+---
+
+## Continuous Integration
+
+GitHub Actions validates every commit before it becomes part of the repository.
+
+Current validation includes:
+
+- YAML linting
+- Ansible syntax validation
+- Helm chart validation
+- Helm template rendering
+
+This prevents invalid configuration from entering the main branch.
+
+---
+
+## Continuous Delivery
+
+Application deployment follows GitOps principles.
+
+Argo CD continuously compares the Kubernetes cluster with the desired state stored in Git.
+
+When differences are detected, Argo CD automatically reconciles the cluster to match the repository.
+
+This removes the need for manual deployment commands.
+
+---
+
+## Deployment Workflow
+
+```mermaid
+sequenceDiagram
+
+    participant Dev as Developer
+    participant Git as GitHub
+    participant CI as GitHub Actions
+    participant Argo as Argo CD
+    participant K8s as Kubernetes
+
+    Dev->>Git: Push commit
+
+    Git->>CI: Trigger workflow
+
+    CI->>CI: YAML validation
+
+    CI->>CI: Ansible validation
+
+    CI->>CI: Helm validation
+
+    CI-->>Git: Success
+
+    Argo->>Git: Detect new revision
+
+    Argo->>K8s: Synchronize desired state
+
+    K8s-->>Argo: Deployment complete
+```
+
+---
+
+# Technology Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Linux | Platform administration |
+| Git | Source control |
+| GitHub | Repository hosting |
+| GitHub Actions | Continuous Integration |
+| Ansible | Infrastructure automation |
+| Kubernetes (k3s) | Container orchestration |
+| Helm | Application packaging |
+| Argo CD | GitOps deployment |
+| Grafana | Monitoring |
+
+---
+
+# Future Development
+
+Planned improvements include:
+
+- Terraform
+- Prometheus
+- Alertmanager
+- cert-manager
+- External Secrets
+- High Availability Kubernetes
+- Network Policies
+- Backup and disaster recovery
