@@ -1,6 +1,38 @@
-# HomeLab
-Various items used in my HomeLab
+Purpose
+---------
+A personal Platform Engineering homelab built to develop practical experience with Kubernetes, GitOps and Infrastructure as Code.
 
-# Vision and Disclaimer
-For the purpose of learning, this repo will consist over more than is needed for a HomeLab. By this, I mean, I will not remove commented out examples from files, and I will have redundant files from earlier learning experiences.
-An Example of this will be the hosts file for ansible, which will contain all of the examples of a default hosts file. 
+Technologies
+------------
+- Linux
+- Kubernetes (k3s)
+- Helm
+- Argo CD
+- GitHub Actions
+- Ansible
+- Grafana
+
+Architecture
+------------
+GitHub
+    ↓
+GitHub Actions
+    ↓
+Argo CD
+    ↓
+Kubernetes
+
+Implemented
+-----------
+✔ Infrastructure as Code
+✔ CI validation
+✔ GitOps deployment
+✔ Helm chart management
+✔ Monitoring
+
+Future work
+-----------
+- Terraform
+- Secret management
+- Prometheus
+- cert-manager
