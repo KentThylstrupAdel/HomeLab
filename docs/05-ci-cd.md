@@ -2,180 +2,132 @@
 
 ## Purpose
 
-This document describes the Continuous Integration (CI) pipeline used to validate infrastructure and application configuration before changes are introduced into the platform.
+One of the habits I wanted to build while working on this project was validating changes before they reached the platform.
 
-The objective of the CI pipeline is to detect configuration errors early, improve deployment quality, and ensure that only validated changes become part of the Git repository.
+Even in a small homelab, it's easy to introduce YAML mistakes, broken Helm charts or invalid Ansible playbooks.
 
-Continuous Delivery and GitOps deployment are covered separately in the GitOps documentation.
-
----
-
-## Scope
-
-This document covers:
-
-* Continuous Integration workflow
-* GitHub Actions
-* Automated validation
-* Quality gates
-* Design decisions
-* Operational principles
-
----
-
-## Why Continuous Integration?
-
-As infrastructure grows, manually validating every configuration change becomes impractical.
-
-Continuous Integration automates this process by validating every commit before it is merged into the repository.
-
-This provides immediate feedback to the developer while reducing the likelihood of broken infrastructure reaching the deployment stage.
-
----
-
-## CI Pipeline
-
-<p align="center">
-  <img src="images/continuous-integration.png"
-       alt="Continuous Integration Pipeline"
-       width="950">
-</p>
-
-The CI pipeline executes automatically whenever relevant changes are pushed to the repository.
-
-Each validation step acts as a quality gate before changes progress further through the Platform Engineering workflow.
-
----
-
-## Current Validation
-
-The current GitHub Actions workflow performs several automated checks.
-
-| Validation              | Purpose                                          |
-| ----------------------- | ------------------------------------------------ |
-| YAML Lint               | Validate YAML syntax and formatting              |
-| Ansible Syntax Check    | Verify playbook correctness                      |
-| Helm Lint               | Validate Helm chart structure                    |
-| Helm Template Rendering | Confirm Kubernetes manifests render successfully |
-
-These checks execute automatically without requiring manual intervention.
+Using GitHub Actions means I can catch many of those problems automatically instead of discovering them later when something fails.
 
 ---
 
 ## CI Workflow
 
-Every infrastructure change follows the same validation process.
+<p align="center">
+  <img src="images/continuous-integration.png"
+       alt="Continuous Integration Workflow"
+       width="900">
+</p>
 
-1. Changes are committed locally.
-2. The commit is pushed to GitHub.
-3. GitHub Actions automatically starts the workflow.
-4. Validation tasks execute sequentially.
-5. Results are reported back to the repository.
-6. Only validated changes proceed to deployment.
+Whenever I push changes to GitHub, a workflow runs automatically.
 
-This workflow helps detect errors before they affect the running platform.
+The workflow checks that the repository is still in a healthy state before I continue working with it.
 
----
+At the moment, the pipeline validates:
 
-## Quality Gates
+* YAML files
+* Ansible playbooks
+* Helm charts
+* Kubernetes manifests
 
-Each validation stage represents a quality gate.
-
-Examples include:
-
-* Invalid YAML syntax
-* Broken Ansible playbooks
-* Incorrect Helm chart structure
-* Invalid Kubernetes template rendering
-
-If any validation fails, the workflow stops immediately.
-
-This prevents invalid infrastructure definitions from progressing further through the deployment process.
+It's a simple pipeline, but it already catches many of the mistakes I would otherwise have found manually.
 
 ---
 
-## GitHub Actions
+## Why GitHub Actions?
 
-GitHub Actions provides the automation platform responsible for executing the CI workflow.
+Since the rest of the project already lives in GitHub, GitHub Actions felt like a natural choice.
 
-The workflow definition is stored within the repository, ensuring that validation logic evolves alongside the infrastructure itself.
+It integrates directly with the repository and makes it easy to validate changes every time I push new code.
 
-This keeps automation transparent, reproducible, and version controlled.
+For this project, it gives me everything I need without adding unnecessary complexity.
+
+---
+
+## My Workflow
+
+A typical change looks something like this:
+
+1. Make a change locally.
+2. Commit and push it to GitHub.
+3. GitHub Actions validates the repository.
+4. Fix any issues if validation fails.
+5. Continue with deployment through Argo CD.
+
+That means I usually know whether something is broken before it ever reaches the Kubernetes cluster.
+
+---
+
+## What I've Learned
+
+Before building this project, I mostly thought of CI as something used in software development.
+
+Working on the homelab changed that perspective.
+
+Even though I'm not compiling an application, validating infrastructure code has been just as valuable.
+
+A missing space in a YAML file or a mistake in a Helm chart can easily prevent an application from deploying correctly.
+
+Catching those issues early saves a lot of troubleshooting later.
 
 ---
 
 ## Design Decisions
 
-Several architectural decisions shaped the CI implementation.
+A few ideas have guided how I built the pipeline.
 
-### Why GitHub Actions?
+### Keep Validation Fast
 
-GitHub Actions integrates directly with the repository while providing a flexible automation platform for infrastructure validation.
+The pipeline should finish quickly.
 
-It removes the need for dedicated CI servers while remaining easy to extend as the platform grows.
-
----
-
-### Why Validate Infrastructure?
-
-Infrastructure is software.
-
-Configuration errors should therefore be detected using automated validation before deployment rather than during production operations.
+If validation takes too long, it's tempting to stop using it.
 
 ---
 
-### Why Small Validation Steps?
+### Validate Before Deployment
 
-Breaking validation into independent stages makes troubleshooting significantly easier.
+I'd rather catch configuration mistakes during validation than while trying to debug a running cluster.
 
-When a workflow fails, the failed validation immediately identifies the affected area.
-
----
-
-## Operational Principles
-
-The Continuous Integration pipeline follows several guiding principles.
-
-* Every commit should be validated automatically.
-* Validation should be reproducible.
-* Quality checks should execute consistently.
-* Failed validation should prevent progression.
-* Feedback should be immediate and actionable.
+That keeps troubleshooting focused on real platform issues instead of simple syntax errors.
 
 ---
 
-## Benefits
+### Start Simple
 
-The current CI implementation provides several operational advantages.
+The current pipeline is intentionally small.
 
-* Early detection of configuration errors.
-* Improved deployment confidence.
-* Consistent validation across contributors.
-* Reduced manual verification.
-* Improved maintainability.
-* Version-controlled automation.
+As I continue expanding the platform, the validation can grow alongside it.
 
-Although the current workflow is intentionally lightweight, it establishes the foundation for a more comprehensive Platform Engineering pipeline.
+There's no need to automate everything on day one.
+
+---
+
+## Future Improvements
+
+Some ideas I'd like to explore include:
+
+* Security scanning
+* Container image validation
+* More advanced Kubernetes testing
+* Additional linting and quality checks
+
+These aren't essential for the current project, but they would be interesting areas to learn more about as the platform evolves.
 
 ---
 
 ## Key Takeaways
 
-* GitHub Actions automatically validates repository changes.
-* Infrastructure quality is verified before deployment.
-* Multiple validation stages improve reliability.
-* CI reduces configuration errors and manual verification.
-* Continuous Integration forms the first quality gate in the Platform Engineering workflow.
+* GitHub Actions validates changes before they reach the platform.
+* Automated validation catches common configuration mistakes early.
+* Even a simple CI pipeline adds confidence when making changes.
+* Infrastructure benefits from Continuous Integration just as much as application code.
+* The pipeline will continue evolving as the platform grows.
 
 ---
 
 ## Related Documentation
 
-The next stage of the platform is described in:
+Once changes have been validated, they are deployed through GitOps using Argo CD.
 
-* [06-gitops.md](06-gitops.md)
+Continue with:
 
-Supporting technologies are documented in:
-
-* [03-kubernetes.md](03-kubernetes.md)
-* [04-ansible.md](04-ansible.md)
+* [06-argocd-gitops.md](06-argocd-gitops.md)
