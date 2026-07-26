@@ -1,255 +1,119 @@
-# Monitoring and Observability
+# Monitoring
 
 ## Purpose
 
-This document describes how monitoring and observability are implemented within the homelab platform.
+As the homelab grew, I realised it was becoming harder to answer a simple question:
 
-Observability provides operational insight into the health, performance, and availability of the Kubernetes platform. Rather than reacting to failures after they occur, monitoring enables proactive identification of issues and provides the information required to investigate and resolve them.
+> **Is everything working as expected?**
 
----
+That's why I introduced monitoring.
 
-## Scope
-
-This document covers:
-
-* Monitoring strategy
-* Grafana
-* Platform observability
-* Metrics collection
-* Future logging architecture
-* Design decisions
-* Operational principles
+Rather than logging into servers or checking individual services, I wanted a central place to see the health of the platform.
 
 ---
 
-## Why Monitoring?
-
-Operating a Kubernetes platform requires visibility into the current state of the infrastructure.
-
-Without monitoring it becomes difficult to answer questions such as:
-
-* Is the cluster healthy?
-* Are applications running correctly?
-* Have deployments succeeded?
-* Are nodes experiencing resource pressure?
-* Has a service become unavailable?
-
-Monitoring provides the operational feedback required to answer these questions quickly.
-
----
-
-## Monitoring Architecture
+## Monitoring Overview
 
 <p align="center">
   <img src="images/monitoring-stack.png"
        alt="Monitoring Stack"
-       width="1000">
+       width="900">
 </p>
 
-The current monitoring solution centers around Grafana, providing dashboards that visualize the operational state of the Kubernetes platform.
+The monitoring stack is centred around Grafana.
 
-As the homelab evolves, additional observability components will expand the platform's monitoring capabilities.
-
----
-
-## Current Monitoring
-
-The platform currently includes:
-
-| Component | Purpose                      |
-| --------- | ---------------------------- |
-| Grafana   | Dashboards and visualization |
-
-Grafana provides a centralized interface for viewing platform health and performance metrics.
+As the platform continues to grow, it will become the main place for viewing dashboards, metrics and the overall health of the environment.
 
 ---
 
-## Planned Monitoring Stack
+## Why Grafana?
 
-The long-term observability strategy includes additional components.
+I chose Grafana because it's widely used, integrates with many different data sources and provides a good overview of what's happening in the platform.
 
-| Component    | Purpose                         |
-| ------------ | ------------------------------- |
-| Prometheus   | Metrics collection              |
-| Grafana      | Visualization and dashboards    |
-| Loki         | Centralized log aggregation     |
-| Alertmanager | Alert routing and notifications |
-
-These services are commonly deployed together within Kubernetes environments to provide comprehensive observability.
+More importantly, it encourages me to look at the platform from an operational perspective instead of only reacting when something breaks.
 
 ---
 
-## Platform Metrics
+## What I Monitor
 
-Examples of metrics that may be monitored include:
-
-### Kubernetes
-
-* Cluster health
-* Node availability
-* Pod status
-* Namespace resource usage
-* Deployment status
-
-### Infrastructure
-
-* CPU utilization
-* Memory consumption
-* Disk usage
-* Network throughput
-
-### Applications
-
-* Pod restarts
-* Replica availability
-* Response times
-* Error rates
-
-These metrics provide operational visibility across the entire platform.
-
----
-
-## Dashboards
-
-Grafana dashboards consolidate platform information into a single interface.
-
-Typical dashboards include:
-
-* Cluster overview
-* Node health
-* Resource utilization
-* Kubernetes workloads
-* Deployment status
-* Infrastructure overview
-
-Dashboards reduce the time required to identify operational issues by presenting relevant metrics in a clear visual format.
-
----
-
-## Logging
-
-Metrics explain **what** is happening.
-
-Logs help explain **why** it happened.
-
-Future platform development will introduce Loki to provide centralized log collection and querying.
-
-Potential log sources include:
-
-* Kubernetes Pods
-* System services
-* Application containers
-* Argo CD
-* Kubernetes control plane components
-
-Centralized logging significantly improves troubleshooting and post-incident analysis.
-
----
-
-## Alerting
-
-As the platform matures, automated alerting will complement dashboards.
+The dashboards currently focus on the platform itself rather than the applications running on it.
 
 Examples include:
 
-* Node unavailable
-* Pod crash loops
-* High CPU utilization
-* Low disk space
-* Deployment failures
-* Failed synchronization in Argo CD
+* Cluster health
+* Node status
+* Resource usage
+* Platform services
 
-Alerts enable operators to respond quickly to abnormal platform conditions.
+As I add more applications, I'd like the monitoring to grow alongside them.
+
+---
+
+## Lessons Learned
+
+One thing I've realised is that monitoring isn't only useful when something is broken.
+
+It's just as valuable for understanding how the platform behaves when everything is working normally.
+
+That makes it much easier to recognise when something changes unexpectedly.
 
 ---
 
 ## Design Decisions
 
-Several architectural decisions influenced the monitoring strategy.
+### Start with the Platform
 
-### Why Grafana?
+Rather than creating dashboards for every application, I wanted to understand the health of the underlying platform first.
 
-Grafana is widely adopted within Kubernetes environments and provides flexible visualization capabilities while integrating with numerous data sources.
-
----
-
-### Why Separate Metrics and Logs?
-
-Metrics efficiently indicate that an issue exists.
-
-Logs provide the detailed information required to understand and resolve the issue.
-
-Separating these responsibilities improves both scalability and operational clarity.
+Once that foundation is in place, application monitoring becomes much easier to build on.
 
 ---
 
-### Why Expand Gradually?
+### Keep Dashboards Useful
 
-The observability stack is introduced incrementally to avoid unnecessary complexity while maintaining a platform that is practical to operate within a homelab environment.
+It's easy to fill Grafana with dozens of dashboards.
 
----
-
-## Operational Principles
-
-Platform monitoring follows several guiding principles.
-
-* Monitoring should provide actionable information.
-* Dashboards should remain simple and focused.
-* Metrics should support operational decision-making.
-* Logging should assist troubleshooting.
-* Alerting should reduce response time.
-* Observability should evolve alongside the platform.
+I'd rather have a smaller number that I actually use than a large collection that I never look at.
 
 ---
 
-## Current Implementation
+### Grow Over Time
 
-The current implementation includes:
+The monitoring stack is still evolving.
 
-* Grafana deployed within Kubernetes
-* Platform dashboards
-* Kubernetes metric visualization
-
-The monitoring solution currently focuses on visibility rather than automated alerting.
+As I gain more experience, I expect to add new dashboards, alerts and data sources.
 
 ---
 
 ## Future Improvements
 
-Planned enhancements include:
+Some areas I'd like to explore include:
 
-* Prometheus deployment
-* Loki integration
+* Prometheus
+* Loki
 * Alertmanager
-* Node Exporter
-* Kubernetes metrics server improvements
-* Custom Grafana dashboards
-* Alert routing
-* Historical trend analysis
-* Capacity planning dashboards
-* Service-level monitoring
+* Log aggregation
+* Custom dashboards
+* Alerting
 
-These additions will progressively improve operational visibility across the platform.
+These would give a more complete view of the platform and help me learn more about observability.
 
 ---
 
 ## Key Takeaways
 
-* Monitoring provides visibility into platform health.
-* Grafana is the current visualization platform.
-* Prometheus and Loki will extend observability.
-* Metrics, logs, and alerts complement one another.
-* Observability is an essential capability of modern Platform Engineering.
+* Monitoring gives me a better understanding of how the platform behaves.
+* Grafana provides a central place to view the health of the environment.
+* I focus on monitoring the platform before individual applications.
+* The monitoring stack will continue evolving as the homelab grows.
+* Understanding normal behaviour makes troubleshooting much easier.
 
 ---
 
 ## Related Documentation
 
-Previous documentation:
-
-* [03-kubernetes.md](03-kubernetes.md)
-* [06-argocd-gitops.md](06-argocd-gitops.md)
+The next chapter describes the network architecture and how the different parts of the platform communicate.
 
 Continue with:
 
-* [08-roadmap.md](08-roadmap.md)
+* [08-network.md](08-network.md)
