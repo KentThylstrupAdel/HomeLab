@@ -2,232 +2,166 @@
 
 ## Purpose
 
-This document describes the Kubernetes platform that forms the runtime environment of the homelab.
+Kubernetes is the core of this homelab.
 
-It explains the overall cluster design, architectural decisions, and operational responsibilities of the Kubernetes platform. Detailed deployment procedures are intentionally omitted, as the focus of this document is the platform itself rather than individual applications.
+I chose to use it because many modern platforms are built around container orchestration, and I wanted practical experience managing applications in a Kubernetes environment rather than just reading about it.
 
----
-
-## Scope
-
-This document covers:
-
-* Kubernetes distribution
-* Cluster topology
-* Node responsibilities
-* Platform services
-* Design decisions
-* Operational considerations
+This document gives an overview of how my cluster is structured and why I chose k3s.
 
 ---
 
-## Why Kubernetes?
-
-Kubernetes provides a consistent platform for deploying, managing, and scaling containerized applications.
-
-The primary objective of introducing Kubernetes into this homelab is not simply to learn container orchestration, but to understand how a modern Platform Engineering team delivers reliable and reproducible infrastructure through declarative configuration and automation.
-
-The cluster serves as the foundation upon which monitoring, GitOps, and future platform services are deployed.
-
----
-
-## Kubernetes Distribution
-
-The platform uses **k3s**, a lightweight CNCF-compliant Kubernetes distribution developed by Rancher.
-
-k3s was selected because it provides:
-
-* A production-inspired Kubernetes environment
-* Low resource requirements
-* Simple installation and maintenance
-* Full compatibility with standard Kubernetes tooling
-* Excellent suitability for homelab environments
-
-Although optimized for edge and resource-constrained systems, k3s remains operationally similar to upstream Kubernetes, making it an excellent platform for practical learning.
-
----
-
-## Cluster Topology
+## Cluster Overview
 
 <p align="center">
   <img src="images/kubernetes-cluster.png"
        alt="Kubernetes Cluster"
-       width="850">
+       width="900">
 </p>
 
-The current cluster consists of one control plane and one worker node.
+The cluster currently consists of:
 
-| Node             | Role          | Operating System |
-| ---------------- | ------------- | ---------------- |
-| cluster-plane-01 | Control Plane | Ubuntu Server    |
-| node-02          | Worker Node   | Ubuntu Server    |
+| Node             | Role          |
+| ---------------- | ------------- |
+| cluster-plane-01 | Control Plane |
+| node-02          | Worker Node   |
 
-This topology provides a straightforward environment for experimenting with Kubernetes while maintaining a clear separation between cluster management and workload execution.
-
----
-
-## Control Plane Responsibilities
-
-The control plane is responsible for managing the Kubernetes cluster.
-
-Its primary responsibilities include:
-
-* Kubernetes API Server
-* Cluster scheduling
-* Desired state management
-* Cluster coordination
-* etcd datastore
-* Node management
-
-The control plane represents the management layer of the Kubernetes environment.
+It's a small cluster, but large enough to explore scheduling, deployments, networking and GitOps workflows.
 
 ---
 
-## Worker Node Responsibilities
+## Why k3s?
 
-Worker nodes execute containerized workloads.
+I chose k3s because it's lightweight, easy to manage and behaves very much like a standard Kubernetes cluster.
 
-Responsibilities include:
+That means I can learn the concepts that apply to larger environments without needing a rack full of servers.
 
-* Running application Pods
-* Executing scheduled workloads
-* Providing compute resources
-* Reporting node health to the control plane
-
-As the platform grows, additional worker nodes can be added without changing the overall architecture.
+For this project it struck a good balance between simplicity and functionality.
 
 ---
 
-## Platform Services
+## What Runs on the Cluster?
 
-The Kubernetes cluster hosts both operational platform services and demonstration workloads.
+At the moment the cluster hosts the platform components themselves, including:
 
-### Current Services
+* Argo CD
+* Grafana
+* Ingress Controller
+* Sample applications used for testing
 
-| Service | Purpose                              |
-| ------- | ------------------------------------ |
-| Argo CD | GitOps deployment and reconciliation |
-| Grafana | Monitoring dashboards                |
-| Helm    | Application packaging and deployment |
-
-### Planned Services
-
-| Service      | Purpose                                  |
-| ------------ | ---------------------------------------- |
-| Prometheus   | Metrics collection                       |
-| Loki         | Centralized logging                      |
-| Traefik      | Ingress controller                       |
-| cert-manager | Automated TLS certificate management     |
-| MetalLB      | Load balancing for bare-metal networking |
-| Longhorn     | Distributed persistent storage           |
-
-Each additional service has been selected to mirror capabilities commonly found in enterprise Kubernetes platforms.
+As the project grows, more services will be added, but I'd rather introduce them gradually than deploy everything at once.
 
 ---
 
-## Workload Management
+## Deploying Applications
 
-Applications are deployed declaratively using Helm charts and synchronized through Argo CD.
+Most applications are deployed using Helm charts and managed through Argo CD.
 
-This deployment model provides:
+That means I normally don't deploy workloads manually with `kubectl`.
 
-* Version-controlled releases
-* Repeatable deployments
-* Simplified upgrades
-* Rollback capabilities
-* Reduced configuration drift
+Instead, I update the Git repository and let Argo CD synchronize the cluster.
 
-The Kubernetes cluster therefore remains synchronized with the desired state stored in Git.
+This gives me a workflow that's much closer to how many Platform Engineering teams work.
 
 ---
 
-## Networking
+## Working with the Cluster
 
-The current cluster uses the default networking provided by k3s.
+When I interact with Kubernetes, I mainly use:
 
-Future improvements include:
+* `kubectl`
+* Helm
+* Argo CD
 
-* Ingress management
-* External load balancing
-* TLS certificate automation
-* Network policy implementation
+Most day-to-day tasks involve:
 
-These additions will further align the platform with enterprise Kubernetes environments.
+* Checking node status
+* Viewing pods
+* Looking at logs
+* Deploying or updating applications
+* Troubleshooting failed deployments
 
----
-
-## Storage
-
-Persistent storage requirements are currently minimal.
-
-As the platform evolves, distributed storage will be introduced using Longhorn to support stateful workloads and improve resilience.
+The goal has been to become comfortable using Kubernetes as part of a normal workflow rather than simply learning individual commands.
 
 ---
 
-## Operational Principles
+## Things I've Learned
 
-The Kubernetes platform is operated according to several guiding principles.
+Building this cluster has taught me much more than simply installing Kubernetes.
 
-### Declarative Configuration
+Some of the topics I've spent the most time understanding include:
 
-Cluster resources are defined declaratively rather than configured manually.
+* Pods and Deployments
+* Services
+* Ingress
+* Namespaces
+* Helm charts
+* GitOps workflows
+* Troubleshooting Kubernetes resources
 
----
-
-### Automation
-
-Deployments are automated using GitOps workflows wherever practical.
-
----
-
-### Repeatability
-
-Applications should be deployable consistently across environments using the same manifests and Helm charts.
-
----
-
-### Incremental Growth
-
-The platform is intentionally expanded in manageable stages rather than introducing unnecessary complexity early in the project.
+Like most Kubernetes users, I've also learned that reading logs is often the quickest path to finding a problem.
 
 ---
 
 ## Design Decisions
 
-Several architectural decisions influenced the Kubernetes implementation.
+While building the cluster, I tried to keep a few things in mind.
 
-### Why k3s?
+### Keep it Small
 
-A lightweight distribution reduces operational overhead while retaining compatibility with the broader Kubernetes ecosystem.
+It's tempting to add more nodes, more applications and more complexity.
 
----
-
-### Why Ubuntu Server?
-
-Ubuntu Server provides a stable and widely adopted Linux platform with excellent community support and compatibility with Kubernetes tooling.
+For now, I'd rather have a platform that I fully understand than one that's unnecessarily complicated.
 
 ---
 
-### Why a Separate Worker Node?
+### Automate Deployments
 
-Separating cluster management from workload execution better reflects production environments and simplifies future expansion.
+Whenever possible, deployments should happen through Git instead of manually applying YAML files.
+
+That keeps the cluster consistent and makes changes easier to track.
+
+---
+
+### Learn One Thing at a Time
+
+Kubernetes is already a large ecosystem.
+
+Instead of installing every popular tool immediately, I prefer adding new components only after I understand the ones already in use.
+
+That approach has made the learning process much more manageable.
+
+---
+
+## Future Improvements
+
+Some areas I'd like to explore in the future include:
+
+* High Availability control planes
+* Persistent storage
+* Better monitoring
+* Network Policies
+* cert-manager
+* Longhorn
+* Multi-cluster management
+
+Some of these may eventually become part of the platform, while others are simply technologies I'd like to gain experience with.
 
 ---
 
 ## Key Takeaways
 
-* Kubernetes provides the runtime platform for all services.
-* k3s offers a lightweight yet fully compatible Kubernetes distribution.
-* Infrastructure is managed declaratively using Helm and GitOps.
-* The platform is designed to grow incrementally while remaining maintainable.
-* Architectural decisions prioritize simplicity, automation, and reproducibility.
+* Kubernetes is the foundation of the platform.
+* I chose k3s because it provides a good balance between simplicity and functionality.
+* Most deployments happen through GitOps rather than manual commands.
+* The cluster is intentionally kept small so it's easier to understand and maintain.
+* New technologies are introduced gradually as the project evolves.
 
 ---
 
 ## Related Documentation
 
-Continue with:
+The next chapters describe how the cluster is managed and updated.
 
 * [04-ansible.md](04-ansible.md)
 * [05-ci-cd.md](05-ci-cd.md)
-* [06-gitops.md](06-gitops.md)
+* [06-argocd-gitops.md](06-argocd-gitops.md)
