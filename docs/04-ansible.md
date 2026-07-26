@@ -2,213 +2,148 @@
 
 ## Purpose
 
-This document describes how Ansible is used to automate infrastructure management within the homelab.
+One of the first things I wanted to avoid in this project was manually configuring servers.
 
-Rather than manually configuring servers, Ansible provides a repeatable and version-controlled approach to provisioning, configuring, and maintaining the platform.
+If I ever needed to rebuild a machine or repeat a configuration, I didn't want to rely on memory or handwritten notes.
 
-Infrastructure automation forms one of the core engineering principles of this project and helps ensure consistency across all managed systems.
+That's why I chose Ansible as the primary tool for infrastructure automation.
 
 ---
 
-## Scope
+## What Ansible Manages
 
-This document covers:
+<p align="center">
+  <img src="images/ansible-management.png"
+       alt="Ansible Management"
+       width="900">
+</p>
 
-* Infrastructure automation
-* Inventory management
-* Playbook organization
-* Configuration management
-* Design decisions
-* Operational workflow
+Ansible is responsible for preparing and maintaining the servers that make up the platform.
+
+Some examples include:
+
+* Installing packages
+* Updating systems
+* Deploying Kubernetes components
+* Installing Helm
+* Configuring supporting services
+* Keeping configuration consistent across machines
+
+Whenever possible, I'd rather write a playbook once than repeat the same commands multiple times.
 
 ---
 
 ## Why Ansible?
 
-Manual configuration is difficult to reproduce and often leads to configuration drift over time.
+Before starting this project, most of my Linux administration was done manually.
 
-Ansible addresses this by defining infrastructure as code.
+That works when you only have one machine, but it quickly becomes repetitive as the environment grows.
 
-Every configuration change can be:
-
-* Version controlled
-* Reviewed
-* Repeated
-* Audited
-* Improved over time
-
-This makes infrastructure management more predictable while reducing repetitive administrative work.
+Using Ansible has helped me build better habits by treating infrastructure as something that can be reproduced instead of something that has to be configured manually each time.
 
 ---
 
-## Management Architecture
+## How I Use It
 
-<p align="center">
-  <img src="images/ansible-management.png"
-       alt="Ansible Management Architecture"
-       width="950">
-</p>
+The playbooks are stored in the Git repository alongside the rest of the project.
 
-The Bazzite workstation acts as the management node.
+That means infrastructure changes are version controlled just like application code.
 
-All infrastructure automation is executed from an isolated Distrobox container, ensuring that the host operating system remains clean while providing a reproducible engineering environment.
+A typical workflow looks something like this:
 
-Managed servers are accessed securely using SSH key authentication.
+1. Update a playbook.
+2. Test it.
+3. Commit the change.
+4. Run the playbook.
+5. Verify the result.
 
----
-
-## Infrastructure Management Workflow
-
-The typical infrastructure workflow follows these steps:
-
-1. Infrastructure changes are written as Ansible playbooks.
-2. Playbooks are committed to Git.
-3. Changes are validated through GitHub Actions.
-4. Playbooks are executed against the target infrastructure.
-5. Infrastructure reaches the desired configuration.
-
-This workflow promotes consistency while minimizing manual intervention.
+Keeping the playbooks in Git also makes it much easier to understand how the platform has evolved over time.
 
 ---
 
-## Inventory Management
+## Building Playbooks
 
-Infrastructure is organized using an Ansible inventory.
+Most playbooks focus on one specific task.
 
-The inventory defines:
+Examples include:
 
-* Managed hosts
-* Host groups
-* Connection methods
-* Variables
+* Installing software
+* Updating packages
+* Deploying Helm charts
+* Preparing Kubernetes nodes
+* Installing platform components
 
-Separating inventory from automation logic improves maintainability and makes it easier to expand the platform in the future.
-
----
-
-## Playbook Organization
-
-Playbooks are organized according to their responsibilities.
-
-Typical automation tasks include:
-
-* Operating system updates
-* Kubernetes installation
-* Helm installation
-* Application deployment
-* Platform configuration
-* Service installation
-
-Each playbook focuses on a single responsibility, making automation easier to understand and maintain.
+I've found that keeping playbooks focused makes them easier to understand, troubleshoot and reuse.
 
 ---
 
-## Idempotent Configuration
+## Lessons Learned
 
-One of Ansible's key advantages is idempotency.
+One thing this project has taught me is that automation isn't just about saving time.
 
-Running the same playbook multiple times should produce the same desired system state without introducing unintended changes.
+It's also about reducing mistakes.
 
-This allows infrastructure automation to be executed repeatedly with confidence.
+A command typed manually today might be forgotten next month, but a playbook documents exactly what was done and can be run again whenever it's needed.
 
----
-
-## SSH Authentication
-
-Infrastructure management relies exclusively on SSH key authentication.
-
-Benefits include:
-
-* Secure authentication
-* Elimination of password-based logins during automation
-* Simplified unattended execution
-* Improved operational security
-
-SSH keys are configured before infrastructure automation is introduced.
-
----
-
-## Infrastructure as Code
-
-Infrastructure configuration is maintained alongside application code within the Git repository.
-
-This provides:
-
-* Complete version history
-* Change tracking
-* Rollback capability
-* Collaborative development
-* Reproducible environments
-
-Infrastructure becomes part of the software development lifecycle rather than a separate operational task.
+I've also learned that writing good automation usually takes longer than running the commands manually the first time—but it pays off every time after that.
 
 ---
 
 ## Design Decisions
 
-Several architectural decisions influenced the automation strategy.
+A few principles guide how I write playbooks.
 
-### Why Ansible?
+### Keep Tasks Focused
 
-Ansible is agentless, easy to understand, and widely adopted for infrastructure automation.
+I prefer several smaller playbooks over one very large playbook that tries to do everything.
 
-Its declarative approach aligns well with the overall Platform Engineering goals of the project.
-
----
-
-### Why Distrobox?
-
-The engineering workstation runs Bazzite Linux, an immutable operating system.
-
-Running Ansible within Distrobox provides a consistent Linux environment while preserving the benefits of an immutable host system.
+It's usually easier to understand and maintain later.
 
 ---
 
-### Why SSH Keys?
+### Make Playbooks Repeatable
 
-SSH keys enable secure, repeatable, and unattended infrastructure management without exposing passwords.
+Running a playbook multiple times shouldn't create unexpected changes.
 
----
-
-### Why Agentless Automation?
-
-Avoiding agents reduces operational complexity and makes it easier to manage a small infrastructure while still reflecting common enterprise practices.
+That makes it much easier to update systems with confidence.
 
 ---
 
-## Operational Principles
+### Version Everything
 
-Infrastructure automation follows several guiding principles.
+Playbooks live in Git together with the rest of the platform.
 
-* Infrastructure should never rely on undocumented manual configuration.
-* Every configuration change should be reproducible.
-* Playbooks should remain idempotent.
-* Automation should be understandable before being optimized.
-* Small, focused playbooks are preferred over large monolithic automation.
+That keeps infrastructure changes visible and makes it easier to revisit earlier decisions if needed.
+
+---
+
+## Future Improvements
+
+Some areas I'd like to improve include:
+
+* Better use of Ansible roles
+* More reusable variables
+* Improved inventory management
+* Additional automation for new platform components
+
+As the homelab grows, I'd like the automation to grow with it rather than becoming harder to maintain.
 
 ---
 
 ## Key Takeaways
 
-* Ansible provides repeatable infrastructure automation.
-* Infrastructure is treated as code and maintained in Git.
-* SSH key authentication enables secure, agentless management.
-* Playbooks are designed to be idempotent and maintainable.
-* Automation reduces configuration drift and improves consistency across the platform.
+* Ansible is my primary tool for infrastructure automation.
+* The goal is to reduce manual administration and improve consistency.
+* Infrastructure changes are stored in Git alongside the rest of the project.
+* Small, focused playbooks are easier to maintain than large, complex ones.
+* Automation has become just as much about reliability as it is about saving time.
 
 ---
 
 ## Related Documentation
 
+After the infrastructure is prepared with Ansible, the next step is validating changes before deployment.
+
 Continue with:
 
 * [05-ci-cd.md](05-ci-cd.md)
-* [06-gitops.md](06-gitops.md)
-
-For the platform architecture, see:
-
-* [02-architecture.md](02-architecture.md)
-
-For Kubernetes-specific implementation details, see:
-
-* [03-kubernetes.md](03-kubernetes.md)
