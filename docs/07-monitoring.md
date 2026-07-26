@@ -2,17 +2,15 @@
 
 ## Purpose
 
-As the homelab grew, I realised it was becoming harder to answer a simple question:
+Monitoring is one of the next areas I want to spend time learning.
 
-> **Is everything working as expected?**
+I've already deployed Grafana as part of the platform, but I currently see it as a foundation rather than a finished monitoring solution.
 
-That's why I introduced monitoring.
-
-Rather than logging into servers or checking individual services, I wanted a central place to see the health of the platform.
+My goal is to gradually build experience with monitoring and observability as the homelab grows.
 
 ---
 
-## Monitoring Overview
+## Current Status
 
 <p align="center">
   <img src="images/monitoring-stack.png"
@@ -20,99 +18,89 @@ Rather than logging into servers or checking individual services, I wanted a cen
        width="900">
 </p>
 
-The monitoring stack is centred around Grafana.
+Grafana has been deployed successfully and is accessible within the cluster.
 
-As the platform continues to grow, it will become the main place for viewing dashboards, metrics and the overall health of the environment.
+At the moment, I'm mainly using it to become familiar with the interface and understand how monitoring fits into a Platform Engineering environment.
+
+I haven't yet built meaningful dashboards, configured alerts or integrated additional monitoring components.
+
+Those are all part of the next stage of the project.
 
 ---
 
 ## Why Grafana?
 
-I chose Grafana because it's widely used, integrates with many different data sources and provides a good overview of what's happening in the platform.
+I chose Grafana because it's one of the most widely used monitoring tools in the industry and integrates with many different data sources.
 
-More importantly, it encourages me to look at the platform from an operational perspective instead of only reacting when something breaks.
+Since it's commonly used in Kubernetes environments, it felt like a good place to start learning about observability.
 
 ---
 
-## What I Monitor
+## Why Monitoring?
 
-The dashboards currently focus on the platform itself rather than the applications running on it.
+Until now, most of my focus has been on building and automating the platform.
 
-Examples include:
+The next logical step is understanding how to monitor it.
 
-* Cluster health
-* Node status
-* Resource usage
-* Platform services
+Rather than waiting until something breaks, I'd like to be able to answer questions like:
 
-As I add more applications, I'd like the monitoring to grow alongside them.
+* Is the cluster healthy?
+* Are resources being used as expected?
+* Has something changed recently?
+* Are applications behaving normally?
+
+Monitoring helps answer those questions.
+
+---
+
+## Current Focus
+
+Right now, monitoring is very much a work in progress.
+
+My immediate goal isn't to build a complete monitoring stack, but simply to become comfortable using Grafana and understanding how it fits into the overall platform.
+
+Once that foundation is in place, I'll gradually expand it.
+
+---
+
+## Planned Improvements
+
+Some of the things I'd like to explore next include:
+
+* Prometheus for metrics collection
+* Loki for log aggregation
+* Alertmanager for notifications
+* More useful Grafana dashboards
+* Platform health monitoring
+* Basic alerting
+
+These aren't implemented yet, but they represent the direction I'd like to take the project.
 
 ---
 
 ## Lessons Learned
 
-One thing I've realised is that monitoring isn't only useful when something is broken.
+One thing this project has taught me is that Platform Engineering isn't only about deploying infrastructure.
 
-It's just as valuable for understanding how the platform behaves when everything is working normally.
+It's also about understanding what's happening after it's been deployed.
 
-That makes it much easier to recognise when something changes unexpectedly.
-
----
-
-## Design Decisions
-
-### Start with the Platform
-
-Rather than creating dashboards for every application, I wanted to understand the health of the underlying platform first.
-
-Once that foundation is in place, application monitoring becomes much easier to build on.
-
----
-
-### Keep Dashboards Useful
-
-It's easy to fill Grafana with dozens of dashboards.
-
-I'd rather have a smaller number that I actually use than a large collection that I never look at.
-
----
-
-### Grow Over Time
-
-The monitoring stack is still evolving.
-
-As I gain more experience, I expect to add new dashboards, alerts and data sources.
-
----
-
-## Future Improvements
-
-Some areas I'd like to explore include:
-
-* Prometheus
-* Loki
-* Alertmanager
-* Log aggregation
-* Custom dashboards
-* Alerting
-
-These would give a more complete view of the platform and help me learn more about observability.
+I'm only at the beginning of that journey, but monitoring is an area I'm looking forward to exploring further.
 
 ---
 
 ## Key Takeaways
 
-* Monitoring gives me a better understanding of how the platform behaves.
-* Grafana provides a central place to view the health of the environment.
-* I focus on monitoring the platform before individual applications.
-* The monitoring stack will continue evolving as the homelab grows.
-* Understanding normal behaviour makes troubleshooting much easier.
+* Grafana is installed and running as part of the platform.
+* Monitoring is currently a learning area rather than a completed feature.
+* The focus is on building a solid foundation before adding more advanced capabilities.
+* Prometheus, Loki and Alertmanager are planned future additions.
+* This chapter will evolve as the monitoring stack becomes more capable.
 
 ---
 
 ## Related Documentation
 
-The next chapter describes the network architecture and how the different parts of the platform communicate.
+The next chapter describes how the different parts of the platform communicate.
 
 Continue with:
 
