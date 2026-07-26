@@ -1,164 +1,106 @@
 # Platform Engineering Homelab
 
-A personal Platform Engineering homelab built to gain practical experience with modern infrastructure management, Kubernetes, Infrastructure as Code, Continuous Integration, and GitOps.
+A hands-on Platform Engineering homelab built to learn Kubernetes, automation, GitOps and modern infrastructure practices by designing, building and operating a real environment.
 
-The objective of this project is not simply to learn individual technologies, but to understand how they integrate into a cohesive platform similar to those used in professional environments.
-
----
-
-## Project Goals
-
-This homelab was created to develop practical experience in:
-
-* Linux administration
-* Infrastructure as Code (Ansible)
-* Kubernetes administration (k3s)
-* Helm chart development
-* Git-based workflows
-* Continuous Integration (GitHub Actions)
-* GitOps Continuous Delivery (Argo CD)
-* Platform monitoring (Grafana)
-* Technical documentation
-
----
-
-## Architecture
-
-![Platform Engineering Homelab Architecture](docs/images/platform-architecture.png)
-
-The platform follows a GitOps deployment model where Git acts as the single source of truth.
-
-```text
-Developer
-     │
-     ▼
-GitHub Repository
-     │
-     ▼
-GitHub Actions
-     ├── YAML Validation
-     ├── Ansible Syntax Validation
-     └── Helm Validation
-     │
-     ▼
-Argo CD
-     │
-     ▼
-k3s Kubernetes Cluster
-     │
-     ▼
-Applications
-```
-
-A detailed architectural description can be found in the documentation.
-
----
-
-## Technology Stack
-
-| Technology       | Purpose                          |
-| ---------------- | -------------------------------- |
-| Bazzite Linux    | Engineering workstation          |
-| Distrobox        | Isolated development environment |
-| Ubuntu Server    | Kubernetes nodes                 |
-| Git & GitHub     | Source control                   |
-| GitHub Actions   | Continuous Integration           |
-| Ansible          | Infrastructure automation        |
-| Kubernetes (k3s) | Container orchestration          |
-| Helm             | Kubernetes package management    |
-| Argo CD          | GitOps Continuous Delivery       |
-| Grafana          | Monitoring and visualization     |
-
----
-
-## Current Capabilities
-
-* Multi-node Kubernetes cluster
-* Infrastructure managed with Ansible
-* Helm-based application packaging
-* Automated CI validation using GitHub Actions
-* GitOps deployments with Argo CD
-* Monitoring with Grafana
-* Version-controlled infrastructure and documentation
-
----
-
-## Repository Structure
-
-```text
-.
-├── ansible/          Infrastructure automation
-├── argocd/           GitOps application definitions
-├── charts/           Helm charts
-├── docs/             Technical documentation
-├── .github/          GitHub Actions workflows
-└── README.md
-```
-
----
-
-## Documentation
-
-The documentation is organized into focused topics:
-
-| Document             | Description                                        |
-| -------------------- | -------------------------------------------------- |
-| `01-overview.md`     | Project goals, scope and engineering principles    |
-| `02-architecture.md` | Overall platform architecture and design decisions |
-| `03-kubernetes.md`   | Kubernetes cluster design and operation            |
-| `04-ansible.md`      | Infrastructure automation using Ansible            |
-| `05-ci-cd.md`        | Continuous Integration with GitHub Actions         |
-| `06-gitops.md`       | GitOps deployment using Argo CD                    |
-| `07-monitoring.md`   | Monitoring and observability                       |
-| `08-roadmap.md`      | Planned improvements and future development        |
-
----
-
-## Engineering Principles
-
-The platform is built around a small set of engineering principles:
-
-* Infrastructure should be defined as code.
-* Git is the single source of truth.
-* Configuration changes should be validated automatically.
-* Deployments should be reproducible.
-* Documentation should evolve alongside the platform.
-* Automation should replace repetitive manual tasks whenever practical.
+<p align="center">
+  <img src="docs/images/platform-architecture.png"
+       alt="Platform Architecture"
+       width="900">
+</p>
 
 ---
 
 ## Current Status
 
-| Component               |     Status     |
-| ----------------------- | :------------: |
-| Kubernetes Cluster      |        ✅       |
-| Ansible Automation      |        ✅       |
-| GitHub Actions CI       |        ✅       |
-| Helm Charts             |        ✅       |
-| Argo CD GitOps          |        ✅       |
-| Grafana Monitoring      |        ✅       |
-| Technical Documentation | 🚧 In Progress |
+**Project State:** 🟢 Active Development
+
+### Current Milestones
+
+* ✅ Kubernetes cluster deployed
+* ✅ Infrastructure automation with Ansible
+* ✅ Git-based workflow
+* ✅ Continuous Integration with GitHub Actions
+* ✅ GitOps deployments with Argo CD
+* ✅ Grafana deployed as the foundation for monitoring
+* ✅ Documentation completed
+
+### Currently Learning
+
+* 🔄 Monitoring & Observability
+* 🔄 Kubernetes Operations
+* 🔄 Platform Engineering practices
+
+### Planned
+
+* ⏳ Prometheus
+* ⏳ Loki
+* ⏳ Alertmanager
+* ⏳ Improved networking
+* ⏳ Backup & Recovery
 
 ---
 
-## Roadmap
+## Why I Built This
 
-The platform will continue to evolve with additional enterprise-focused capabilities, including:
+I built this homelab to gain practical experience with the technologies and workflows used in modern Platform Engineering.
 
-* Terraform
-* Prometheus
-* Alertmanager
-* cert-manager
-* Secret management
-* Network Policies
-* High Availability Kubernetes
-* Backup and disaster recovery
-* Automated container image builds
+Rather than following tutorials, I wanted to build something from the ground up, solve real problems along the way, and document both the successes and the lessons learned.
+
+This repository reflects where the project is today—not a finished platform, but an environment that continues to evolve as I learn.
 
 ---
 
-## About This Project
+## Start Here
 
-This repository serves as a practical learning project and a technical portfolio demonstrating modern Platform Engineering practices.
+If you're new to the repository, I'd recommend reading the documentation in this order:
 
-Rather than focusing on individual technologies in isolation, the project demonstrates how automation, Kubernetes, Continuous Integration, and GitOps can be combined into a maintainable and reproducible platform.
+1. **[Overview](docs/01-overview.md)** – Why I built the project and what I'm trying to achieve.
+2. **[Architecture](docs/02-architecture.md)** – High-level design decisions.
+3. **[Kubernetes](docs/03-kubernetes.md)** – Why I chose Kubernetes and how the cluster is structured.
+4. **Continue through the remaining chapters** as the project becomes more detailed.
+
+---
+
+## Documentation
+
+| Chapter | Description            |
+| ------- | ---------------------- |
+| 01      | Project overview       |
+| 02      | Architecture           |
+| 03      | Kubernetes             |
+| 04      | Ansible                |
+| 05      | Continuous Integration |
+| 06      | GitOps with Argo CD    |
+| 07      | Monitoring             |
+| 08      | Network                |
+| 09      | Roadmap                |
+
+---
+
+## Technologies
+
+* Kubernetes (k3s)
+* Ansible
+* GitHub Actions
+* Argo CD
+* Grafana
+* Helm
+* Git & GitHub
+* Ubuntu Server
+* Bazzite Linux
+
+---
+
+## Project Philosophy
+
+This repository isn't intended to demonstrate that I already know everything about Platform Engineering.
+
+Instead, it documents what I've built, what I've learned, and where I want to go next.
+
+As the homelab evolves, so will this documentation.
+
+---
+
+## Feedback
+
+If you have suggestions or see something that could be improved, I'd be happy to hear your feedback.
