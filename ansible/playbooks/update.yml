@@ -1,6 +1,6 @@
 ---
 - name: Update Ubuntu Servers
-  hosts: ubuntu_servers
+  hosts: cluster
   serial: 1
   roles:
     - common
