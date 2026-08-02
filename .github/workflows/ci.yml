@@ -32,8 +32,6 @@ jobs:
     name: Ansible syntax check
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
 
     steps:
       - name: Check out repository
