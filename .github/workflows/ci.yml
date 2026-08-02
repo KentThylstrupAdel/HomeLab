@@ -34,7 +34,6 @@ jobs:
 
     defaults:
       run:
-        working-directory: ansible
 
     steps:
       - name: Check out repository
@@ -51,8 +50,8 @@ jobs:
       - name: Syntax-check update playbook
         run: |
           ansible-playbook \
-            -i inventories/hosts \
-            playbooks/update.yml \
+            -i ansible/inventories/hosts \
+            ansible/playbooks/update.yml \
             --syntax-check
 
   helm-lint:
