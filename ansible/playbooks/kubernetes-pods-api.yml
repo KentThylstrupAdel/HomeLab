@@ -1,0 +1,16 @@
+---
+- name: Query Kubernetes pods through API
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Get pods in httpbin namespace
+      ansible.builtin.uri:
+        url: http://localhost:8001/api/v1/namespaces/httpbin/pods
+        method: GET
+        return_content: true
+      register: pod_result
+
+    - name: Show pod names
+      ansible.builtin.debug:
+        msg: "{{ pod_result.json['items'] | map(attribute='metadata.name') | list }}"

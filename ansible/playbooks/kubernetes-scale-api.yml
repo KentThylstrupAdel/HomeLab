@@ -1,0 +1,22 @@
+---
+- name: Scale Kubernetes deployment through API
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Scale nginx-demo to two replicas
+      ansible.builtin.uri:
+        url: http://localhost:8001/apis/apps/v1/namespaces/nginx-demo/deployments/nginx-demo/scale
+        method: PATCH
+        headers:
+          Content-Type: application/merge-patch+json
+        body_format: json
+        body:
+          spec:
+            replicas: 2
+        status_code: 200
+      register: scale_result
+
+    - name: Show new replica count
+      ansible.builtin.debug:
+        msg: "API requested {{ scale_result.json.spec.replicas }} replicas"

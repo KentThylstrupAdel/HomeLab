@@ -1,0 +1,16 @@
+---
+- name: Query Kubernetes API
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Get all namespaces
+      ansible.builtin.uri:
+        url: http://localhost:8001/api/v1/namespaces
+        method: GET
+        return_content: true
+      register: namespace_result
+
+    - name: Show namespace names
+      ansible.builtin.debug:
+        msg: "{{ namespace_result.json['items'] | map(attribute='metadata.name') | list }}"
