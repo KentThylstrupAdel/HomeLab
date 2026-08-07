@@ -9,7 +9,7 @@
   tasks:
     - name: Get Grafana health
       ansible.builtin.uri:
-        url: http://localhost:3000/api/health
+        url: http://grafana.homelab/api/health
         method: GET
         user: admin
         password: "{{ grafana_password }}"
