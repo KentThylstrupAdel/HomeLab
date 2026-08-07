@@ -77,6 +77,17 @@ I've found that keeping playbooks focused makes them easier to understand, troub
 
 ---
 
+## REST API Automation
+
+Besides SSH-based automation, I've started using Ansible's uri module to interact with REST APIs. As part of the homelab I have created playbooks that:
+
+* Query a test API (used httpbin)
+* Retrieved Grafana health information
+* Query Kubernetes for namespaces and pods
+* Scale a Kubernetes deployment through the REST API
+
+---
+
 ## Lessons Learned
 
 One thing this project has taught me is that automation isn't just about saving time.
