@@ -1,0 +1,34 @@
+---
+- name: Test REST API with Ansible
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Send GET request
+      ansible.builtin.uri:
+        url: http://localhost:8080/get?name=Kent&task=LearnAPI
+        method: GET
+        return_content: true
+      register: get_result
+
+    - name: Show GET response
+      ansible.builtin.debug:
+        var: get_result.json
+
+    - name: Send POST request with JSON
+      ansible.builtin.uri:
+        url: http://localhost:8080/post
+        method: POST
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+        body_format: json
+        body:
+          name: Kent
+          task: Learn REST APIs
+        return_content: true
+      register: post_result
+
+    - name: Show POST response
+      ansible.builtin.debug:
+        var: post_result.json
