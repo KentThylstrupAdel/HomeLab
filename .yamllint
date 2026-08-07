@@ -17,3 +17,4 @@ rules:
 
 ignore: |
   charts/nginx-demo/templates/
+  charts/httpbin/templates/
