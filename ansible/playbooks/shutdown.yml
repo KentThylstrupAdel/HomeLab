@@ -1,0 +1,22 @@
+---
+- name: Shutdown worker nodes
+  hosts: workers
+  become: true
+
+  tasks:
+    - name: Shutdown worker
+      ansible.builtin.command:
+        cmd: shutdown -h now
+      changed_when: true
+      ignore_unreachable: true
+
+- name: Shutdown control plane
+  hosts: management
+  become: true
+
+  tasks:
+    - name: Shutdown control plane
+      ansible.builtin.command:
+        cmd: shutdown -h now
+      changed_when: true
+      ignore_unreachable: true
