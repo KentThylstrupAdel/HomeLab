@@ -85,6 +85,15 @@ I like the idea that the cluster should reflect what's stored in Git rather than
 
 ---
 
+### Monitoring
+
+- Prometheus for metrics collection
+- Grafana dashboards
+- Node CPU, memory and disk monitoring
+- Kubernetes node and pod health monitoring
+
+---
+
 ### Documentation
 
 I've found that writing documentation forces me to understand the technologies better.
