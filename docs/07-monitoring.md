@@ -42,6 +42,14 @@ The dashboard configuration is version-controlled and stored in:
 
 `grafana/dashboards/homelab-overview.json`
 
+The dasnhoard looks like this:
+
+<p align="center">
+  <img src="images/grafana-dashboard-overview.png"
+       alt="Monitoring Stack"
+       width="900">
+</p>
+
 ---
 
 ## Why Grafana?
