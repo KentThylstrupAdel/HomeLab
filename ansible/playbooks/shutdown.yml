@@ -6,7 +6,7 @@
   tasks:
     - name: Shutdown worker
       ansible.builtin.command:
-        cmd: shutdown -h +1 
+        cmd: shutdown -h +1
       changed_when: true
       ignore_unreachable: true
 
