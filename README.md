@@ -23,16 +23,16 @@ A hands-on Platform Engineering homelab built to learn Kubernetes, automation, G
 * ✅ GitOps deployments with Argo CD
 * ✅ Grafana deployed as the foundation for monitoring
 * ✅ Documentation completed
+* ✅ Monitoring with Prometheus and Grafana
 
 ### Currently Learning
 
-* 🔄 Monitoring & Observability
 * 🔄 Kubernetes Operations
 * 🔄 Platform Engineering practices
 
 ### Planned
 
-* ⏳ Prometheus
+* ✅ Prometheus
 * ⏳ Loki
 * ⏳ Alertmanager
 * ⏳ Improved networking
