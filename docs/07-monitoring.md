@@ -22,9 +22,25 @@ Grafana has been deployed successfully and is accessible within the cluster.
 
 At the moment, I'm mainly using it to become familiar with the interface and understand how monitoring fits into a Platform Engineering environment.
 
-I haven't yet built meaningful dashboards, configured alerts or integrated additional monitoring components.
+---
 
-Those are all part of the next stage of the project.
+## Dashboard
+
+The monitoring stack consists of Prometheus for metrics collection and Grafana for visualisation.
+
+Grafana is exposed through Traefik Ingress and is available at `http://grafana.homelab`.
+
+The current dashboard provides a simple operational overview of the homelab and includes:
+
+- Kubernetes node status
+- Pod readiness
+- CPU usage by node
+- Memory usage by node
+- Disk usage by node
+
+The dashboard configuration is version-controlled and stored in:
+
+`grafana/dashboards/homelab-overview.json`
 
 ---
 
