@@ -2,35 +2,37 @@
 
 ## Purpose
 
-Monitoring is one of the next areas I want to spend time learning.
+Monitoring gives me visibility into how the platform behaves after it has been deployed.
 
-I've already deployed Grafana as part of the platform, but I currently see it as a foundation rather than a finished monitoring solution.
-
-My goal is to gradually build experience with monitoring and observability as the homelab grows.
+The goal of this part of the homelab is not to build a complete observability platform, but to understand the fundamentals of collecting metrics, visualising them and using them to spot problems.
 
 ---
 
 ## Current Status
 
+The homelab now has a working monitoring setup using Prometheus and Grafana.
+
+Prometheus collects metrics from the Kubernetes cluster, while Grafana is used to visualise them.
+
+Grafana is exposed through Traefik Ingress at:
+
+`http://grafana.homelab`
+
+This address is only available inside my air-gapped homelab network and cannot be accessed externally.
+
 <p align="center">
-  <img src="images/monitoring-stack.png"
-       alt="Monitoring Stack"
+  <img src="images/grafana-dashboard-overview.png"
+       alt="Grafana Homelab Overview Dashboard"
        width="900">
 </p>
 
-Grafana has been deployed successfully and is accessible within the cluster.
-
-At the moment, I'm mainly using it to become familiar with the interface and understand how monitoring fits into a Platform Engineering environment.
-
 ---
 
-## Dashboard
+## Homelab Overview Dashboard
 
-The monitoring stack consists of Prometheus for metrics collection and Grafana for visualisation.
+The current dashboard is deliberately simple and focuses on the information I would want to check first when looking at the cluster.
 
-Grafana is exposed through Traefik Ingress and is available at `http://grafana.homelab`.
-
-The current dashboard provides a simple operational overview of the homelab and includes:
+It currently shows:
 
 - Kubernetes node status
 - Pod readiness
@@ -42,83 +44,92 @@ The dashboard configuration is version-controlled and stored in:
 
 `grafana/dashboards/homelab-overview.json`
 
-The dasnhoard looks like this:
+This means the dashboard itself is treated as part of the platform configuration rather than something that only exists inside the Grafana UI.
+
+---
+
+## Monitoring Architecture
 
 <p align="center">
-  <img src="images/grafana-dashboard-overview.png"
-       alt="Monitoring Stack"
+  <img src="images/monitoring-stack.png"
+       alt="Monitoring and Observability Stack"
        width="900">
 </p>
 
+The monitoring stack currently consists of:
+
+- Prometheus for collecting and storing metrics
+- Grafana for dashboards and visualisation
+- Node Exporter for host-level metrics
+- kube-state-metrics for Kubernetes object metrics
+
+Grafana and Prometheus are both deployed and running.
+
+Loki, Alertmanager and additional observability components are still planned for later.
+
 ---
 
-## Why Grafana?
+## Why Prometheus and Grafana?
 
-I chose Grafana because it's one of the most widely used monitoring tools in the industry and integrates with many different data sources.
+I chose Prometheus and Grafana because they are commonly used together in Kubernetes environments and gave me a practical way to learn how monitoring actually fits into a platform.
 
-Since it's commonly used in Kubernetes environments, it felt like a good place to start learning about observability.
+Prometheus handles the metric collection, while Grafana gives me a way to turn that data into something useful.
+
+That separation helped make the monitoring flow much easier to understand.
 
 ---
 
-## Why Monitoring?
+## What I've Learned
 
-Until now, most of my focus has been on building and automating the platform.
+Before adding Prometheus, Grafana was essentially just an empty interface.
 
-The next logical step is understanding how to monitor it.
+Once Prometheus was connected as a data source, the relationship became much clearer:
 
-Rather than waiting until something breaks, I'd like to be able to answer questions like:
+`Infrastructure → Metrics → Prometheus → Grafana`
 
-* Is the cluster healthy?
-* Are resources being used as expected?
-* Has something changed recently?
-* Are applications behaving normally?
+Building the dashboard also helped me understand that monitoring is not just about collecting as much data as possible.
 
-Monitoring helps answer those questions.
+The useful part is deciding which information helps answer operational questions such as:
+
+- Are both Kubernetes nodes healthy?
+- Are the Pods ready?
+- Is one node using unusually high CPU or memory?
+- Is disk usage becoming a problem?
 
 ---
 
 ## Current Focus
 
-Right now, monitoring is very much a work in progress.
+The current setup gives me a basic operational view of the cluster.
 
-My immediate goal isn't to build a complete monitoring stack, but simply to become comfortable using Grafana and understanding how it fits into the overall platform.
+I want to keep the monitoring solution relatively simple while I become more comfortable with Prometheus queries, Grafana dashboards and the general monitoring workflow.
 
-Once that foundation is in place, I'll gradually expand it.
+The next step is to gradually expand from infrastructure metrics into broader observability.
 
 ---
 
 ## Planned Improvements
 
-Some of the things I'd like to explore next include:
+Future improvements include:
 
-* Prometheus for metrics collection
-* Loki for log aggregation
-* Alertmanager for notifications
-* More useful Grafana dashboards
-* Platform health monitoring
-* Basic alerting
+- Loki for centralised log aggregation
+- Alertmanager for alerts and notifications
+- Additional Grafana dashboards
+- Application-level metrics
+- Basic alerting for critical components
+- More advanced Prometheus queries
 
-These aren't implemented yet, but they represent the direction I'd like to take the project.
-
----
-
-## Lessons Learned
-
-One thing this project has taught me is that Platform Engineering isn't only about deploying infrastructure.
-
-It's also about understanding what's happening after it's been deployed.
-
-I'm only at the beginning of that journey, but monitoring is an area I'm looking forward to exploring further.
+These are planned improvements rather than features currently implemented.
 
 ---
 
 ## Key Takeaways
 
-* Grafana is installed and running as part of the platform.
-* Monitoring is currently a learning area rather than a completed feature.
-* The focus is on building a solid foundation before adding more advanced capabilities.
-* Prometheus, Loki and Alertmanager are planned future additions.
-* This chapter will evolve as the monitoring stack becomes more capable.
+- Prometheus collects metrics from the Kubernetes environment.
+- Grafana provides a visual overview of cluster health and resource usage.
+- The dashboard configuration is stored in Git.
+- Grafana is exposed through Traefik Ingress inside the homelab network.
+- Logging and alerting are the next major monitoring areas I want to explore.
 
 ---
 
@@ -128,4 +139,4 @@ The next chapter describes how the different parts of the platform communicate.
 
 Continue with:
 
-* [08-network.md](08-network.md)
+- [08-network.md](08-network.md)
