@@ -1,0 +1,111 @@
+---
+- name: Health check Ubuntu hosts
+  hosts: cluster
+  gather_facts: true
+
+  vars_files:
+    - ../group_vars/all/secrets.yml
+
+  tasks:
+    - name: Get disk usage
+      ansible.builtin.shell:
+        cmd: "df -P / | awk 'NR==2 {print $5}'"
+      register: disk_usage
+      changed_when: false
+
+    - name: Get Uptime
+      ansible.builtin.command:
+        cmd: uptime -p
+      register: uptime_result
+      changed_when: false
+
+    - name: Get load average
+      ansible.builtin.shell:
+        cmd: "uptime | awk -F'load average:' '{print $2}'"
+      register: load_average
+      changed_when: false
+
+    - name: Show host health
+      ansible.builtin.debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Disk usage: {{ disk_usage.stdout }}"
+          - "Uptime: {{ uptime_result.stdout }}"
+          - "Load average: {{ load_average.stdout }}"
+
+
+- name: Health check Kubernetes
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  environment:
+    KUBECONFIG: /home/kent/.kube/config
+
+  tasks:
+    - name: Get Kubernetes nodes
+      ansible.builtin.command:
+        cmd: kubectl get nodes
+      register: k8s_nodes
+      changed_when: false
+
+    - name: Count Ready Kubernetes nodes
+      ansible.builtin.shell:
+        cmd: kubectl get nodes --no-headers | awk '$2 == "Ready" {count++} END {print count}'
+      register: ready_nodes
+      changed_when: false
+
+    - name: Count unhealthy Pods
+      ansible.builtin.shell:
+        cmd: >
+          kubectl get pods -A --no-headers |
+          awk '$4 != "Running" && $4 != "Completed" {count++} END {print count+0}'
+      register: unhealthy_pods
+      changed_when: false
+
+    - name: Get all Pods
+      ansible.builtin.command:
+        cmd: kubectl get pods -A
+      register: k8s_pods
+      changed_when: false
+
+    - name: Check Grafana
+      ansible.builtin.uri:
+        url: http://grafana.homelab/api/health
+        method: GET
+        status_code: 200
+      register: grafana_health
+
+    - name: Check Prometheus
+      ansible.builtin.command:
+        cmd: kubectl get svc prometheus-server -n monitoring
+      register: prometheus_health
+      changed_when: false
+
+    - name: Show final health summary
+      ansible.builtin.debug:
+        msg:
+          - "========================================="
+          - "         HOMELAB HEALTH CHECK"
+          - "========================================="
+          - ""
+          - "Servers"
+          - "  cluster-plane-01"
+          - "    Disk: {{ hostvars['cluster-plane-01'].disk_usage.stdout }}"
+          - "    Uptime: {{ hostvars['cluster-plane-01'].uptime_result.stdout }}"
+          - "    Load: {{ hostvars['cluster-plane-01'].load_average.stdout }}"
+          - ""
+          - "  node-02"
+          - "    Disk: {{ hostvars['node-02'].disk_usage.stdout }}"
+          - "    Uptime: {{ hostvars['node-02'].uptime_result.stdout }}"
+          - "    Load: {{ hostvars['node-02'].load_average.stdout }}"
+          - "========================================="
+          - ""
+          - "Kubernetes"
+          - "  Nodes Ready: {{ ready_nodes.stdout }}/2"
+          - "  Unhealthy Pods: {{ unhealthy_pods.stdout }}"
+          - ""
+          - "Services"
+          - "  Grafana: {{ 'Reachable' if grafana_health.status == 200 else 'Unavailable' }}"
+          - "  Prometheus: {{ 'Reachable' if prometheus_health.rc == 0 else 'Unavailable' }}"
+          - "========================================="
