@@ -1,0 +1,20 @@
+---
+- import_playbook: healthcheck.yml
+
+- import_playbook: update.yml
+
+- name: Wait for Kubernetes recovery
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  environment:
+    KUBECONFIG: /home/kent/.kube/config
+
+  tasks:
+    - name: Wait for all Kubernetes nodes to be Ready
+      ansible.builtin.command:
+        cmd: kubectl wait --for=condition=Ready nodes --all --timeout=180s
+      changed_when: false
+
+- import_playbook: healthcheck.yml

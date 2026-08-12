@@ -4,3 +4,6 @@
   serial: 1
   roles:
     - common
+
+  vars_files:
+    - ../group_vars/all/secrets.yml
