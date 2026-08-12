@@ -77,6 +77,30 @@ I've found that keeping playbooks focused makes them easier to understand, troub
 
 ---
 
+## Operational Playbooks
+
+As the homelab has matured, I've started building operational playbooks rather than focusing only on deployment.
+
+The current playbooks include:
+
+- `healthcheck.yml`
+  - Checks Ubuntu host health
+  - Verifies Kubernetes node readiness
+  - Checks Pod health
+  - Verifies Grafana availability
+  - Verifies Prometheus availability
+
+- `maintenance.yml`
+  - Runs a pre-maintenance health check
+  - Updates Ubuntu servers one at a time
+  - Reboots hosts if required
+  - Waits for the Kubernetes cluster to recover
+  - Runs a post-maintenance health check
+
+The goal is to build a repeatable maintenance workflow that can safely perform routine operational tasks.
+
+---
+
 ## REST API Automation
 
 Besides SSH-based automation, I've started using Ansible's uri module to interact with REST APIs. As part of the homelab I have created playbooks that:
