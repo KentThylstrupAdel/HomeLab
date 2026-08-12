@@ -25,13 +25,21 @@ The homelab has grown one step at a time, with each milestone building on the pr
 * [x] Deploy Grafana as the foundation for monitoring
 * [x] Document the platform architecture
 * [x] Build this portfolio repository
+* [X] Health check playbook
+* [X] Maintenance workflow
 
 ### 🎯 Next Milestones
 
+#### Ansible Updates
+* [ ] Bootstrap automation
+* [ ] Worker node lifecycle
+* [ ] Certificate monitoring
+* [ ] Backup automation
+
 #### Monitoring & Observability
 
-* [ ] Build useful Grafana dashboards
-* [ ] Deploy Prometheus
+* [X] Build useful Grafana dashboards
+* [X] Deploy Prometheus
 * [ ] Deploy Loki
 * [ ] Configure Alertmanager
 * [ ] Create basic alerts
