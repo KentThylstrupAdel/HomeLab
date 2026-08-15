@@ -1,6 +1,6 @@
 # Platform Engineering Homelab
 
-A hands-on Platform Engineering homelab built to learn Kubernetes, automation, GitOps, REST APIs, monitoring and modern infrastructure practices by designing, building and operating a real environment.
+A hands-on Platform Engineering homelab built to learn Kubernetes, automation, GitOps, REST APIs, monitoring, PKI and modern infrastructure practices by designing, building and operating a real environment.
 
 ---
 
@@ -8,33 +8,25 @@ A hands-on Platform Engineering homelab built to learn Kubernetes, automation, G
 
 **Project State:** 🟢 Active Development
 
-### Current Milestones
+The platform currently includes a working Kubernetes cluster, infrastructure automation, CI/CD, GitOps, monitoring and an internal PKI.
 
-- ✅ Kubernetes cluster deployed
-- ✅ Infrastructure automation with Ansible
-- ✅ Git-based workflow
-- ✅ Continuous Integration with GitHub Actions
-- ✅ GitOps deployments with Argo CD
-- ✅ Helm-based application deployment
-- ✅ REST API automation with Ansible
-- ✅ Monitoring with Prometheus and Grafana
-- ✅ Grafana dashboard for cluster health and resource usage
-- ✅ Technical documentation for the platform
+Development is ongoing, with new capabilities added gradually as I learn and expand the environment.
 
-### Currently Learning
+### Quick Progress Overview
 
-- 🔄 Kubernetes operations
-- 🔄 Platform Engineering practices
-- 🔄 Monitoring and observability
-- 🔄 API-driven automation
+For a quick view of **what I've implemented, what I'm currently working on, and where the platform is heading**, see the:
 
-### Planned
+**➡️ [Project Roadmap](docs/20-roadmap.md)**
 
-- ⏳ Loki
-- ⏳ Alertmanager
-- ⏳ Improved networking
-- ⏳ Backup & recovery
-- ⏳ Additional monitoring and alerting
+The roadmap tracks progress across:
+
+- Infrastructure & Ansible
+- Kubernetes
+- CI/CD & GitOps
+- Monitoring & Observability
+- Networking
+- Security & PKI
+- Documentation
 
 ---
 
@@ -42,7 +34,7 @@ A hands-on Platform Engineering homelab built to learn Kubernetes, automation, G
 
 I built this homelab to gain practical experience with the technologies and workflows used in modern Platform Engineering.
 
-Rather than learning each technology separately, I wanted to understand how Kubernetes, Ansible, GitHub Actions, Argo CD, Helm, APIs and monitoring fit together as a working platform.
+Rather than learning each technology separately, I wanted to understand how Kubernetes, Ansible, GitHub Actions, Argo CD, Helm, APIs, monitoring and security fit together as a working platform.
 
 This repository reflects where the project is today—not a finished platform, but an environment that continues to evolve as I learn.
 
@@ -50,12 +42,17 @@ This repository reflects where the project is today—not a finished platform, b
 
 ## Start Here
 
-If you're new to the repository, I'd recommend starting with:
+There are two useful starting points depending on what you're looking for:
 
-1. **[Overview](docs/01-overview.md)** – Why I built the project and what I'm trying to achieve.
-2. **[Architecture](docs/02-architecture.md)** – High-level design and infrastructure.
-3. **[Kubernetes](docs/03-kubernetes.md)** – Cluster structure and Kubernetes setup.
-4. **Continue through the remaining chapters** as the project becomes more detailed.
+**[Project Roadmap](docs/20-roadmap.md)** – A quick overview of what I've built, what I'm currently working on and what is planned next.
+
+**[Project Overview](docs/01-overview.md)** – A more detailed introduction to the project's purpose, scope and engineering principles.
+
+For a deeper technical look, continue through the documentation:
+
+1. **[Architecture](docs/02-architecture.md)** – High-level design and infrastructure.
+2. **[Kubernetes](docs/03-kubernetes.md)** – Cluster structure and Kubernetes setup.
+3. **Continue through the remaining chapters** for the individual platform components.
 
 ---
 
@@ -71,7 +68,8 @@ If you're new to the repository, I'd recommend starting with:
 | 06 | GitOps with Argo CD |
 | 07 | Monitoring and observability |
 | 08 | Network |
-| 09 | Roadmap |
+| 09 | PKI and certificate management |
+| 20 | Roadmap and project progress |
 
 ---
 
@@ -85,6 +83,7 @@ If you're new to the repository, I'd recommend starting with:
 - Prometheus
 - Grafana
 - REST APIs
+- PKI / TLS
 - Git & GitHub
 - Ubuntu Server
 - Bazzite Linux
