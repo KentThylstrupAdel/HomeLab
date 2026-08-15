@@ -70,20 +70,20 @@ Rather than separating completed work from future milestones, the current state 
 - [ ] Improve Ingress configuration
 - [ ] Expand network monitoring
 
-### Security & PKI
+#### Security & PKI
 
-- [x] Build an internal Root CA
-- [x] Build an Intermediate CA
-- [x] Establish a Root → Intermediate → Service trust chain
-- [x] Issue a TLS certificate for `grafana.homelab`
-- [x] Deploy the certificate through a Kubernetes TLS Secret
-- [x] Establish trusted HTTPS from the client
-- [ ] Secure/offline Root CA storage and backup
-- [ ] Certificate expiration monitoring
-- [ ] Automate certificate renewal
-- [ ] Automate certificate deployment
-- [ ] Add security scanning
-- [ ] Explore secrets management
+* [x] Internal Root Certificate Authority
+* [x] Intermediate Certificate Authority
+* [x] Trusted HTTPS for internal services
+* [x] Automated certificate expiration checks
+* [x] Automated certificate renewal
+* [x] Automated Kubernetes TLS Secret updates
+* [x] Post-renewal HTTPS validation
+* [x] Protect CA credentials using Ansible Vault
+* [ ] Unattended certificate lifecycle using systemd
+* [ ] Certificate expiration monitoring and alerting
+* [ ] Secure/offline Root CA storage
+* [ ] Expand PKI to additional internal services
 
 ### Documentation
 
