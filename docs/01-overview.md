@@ -20,8 +20,9 @@ The platform currently includes:
 - Continuous Integration with GitHub Actions
 - GitOps deployments using Argo CD
 - REST API interaction and automation
-- Monitoring with Prometheus and Grafana
+- Platform monitoring with Prometheus and Grafana
 - Technical documentation for the architecture and implementation
+- Internal PKI and trusted HTTPS for platform services
 
 The goal is not to build the biggest homelab possible, but one that is understandable, maintainable and easy to expand.
 
@@ -200,7 +201,7 @@ The documentation is split into individual topics so each document focuses on on
 | 06-argocd-gitops.md | GitOps with Argo CD |
 | 07-monitoring.md | Monitoring and observability |
 | 08-network.md | Network architecture |
-| 09-roadmap.md | PKI architecture |
+| 09-roadmap.md | PKI and Certificate management |
 | 20-roadmap.md | Current and future improvements |
 
 ---
@@ -230,6 +231,7 @@ As I learn new technologies and gain more experience, the platform will continue
 - Automation, Git, Kubernetes, APIs and monitoring are central parts of the project.
 - The platform is intentionally expanded one component at a time.
 - Implemented features are documented as implemented, while future ideas remain on the roadmap.
+- Security is being introduced incrementally, beginning with internal PKI and trusted HTTPS.
 
 ---
 
