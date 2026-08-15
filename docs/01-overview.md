@@ -177,7 +177,8 @@ The documentation is split into individual topics so each document focuses on on
 | 06-argocd-gitops.md | GitOps with Argo CD |
 | 07-monitoring.md | Monitoring and observability |
 | 08-network.md | Network architecture |
-| 09-roadmap.md | Current and future improvements |
+| 09-roadmap.md | PKI architecture |
+| 20-roadmap.md | Current and future improvements |
 
 ---
 
