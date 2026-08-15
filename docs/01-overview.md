@@ -131,6 +131,29 @@ The dashboard configuration is stored in Git alongside the rest of the project.
 
 ---
 
+### Security
+
+Security is being introduced gradually as the platform becomes more capable.
+
+The first implemented security component is an internal Public Key Infrastructure (PKI), providing trusted certificates for services within the homelab.
+
+The current PKI uses a simple certificate hierarchy:
+
+```text
+HomeLab Root CA
+        │
+        ▼
+HomeLab Intermediate CA
+        │
+        ▼
+Service Certificates
+        │
+        └── grafana.homelab
+
+```
+
+---
+
 ### Documentation
 
 Writing documentation has become part of the learning process.
