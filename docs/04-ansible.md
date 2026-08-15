@@ -32,6 +32,7 @@ It is currently used for tasks such as:
 - Performing health checks
 - Running maintenance workflows
 - Interacting with REST APIs
+- Integration with certificate lifecycle automation
 
 Whenever possible, I'd rather describe a repeatable process in a playbook than rely on manually repeating commands.
 
@@ -172,6 +173,14 @@ This also provides a foundation for exploring more advanced secrets management l
 
 ---
 
+## Certificate Lifecycle Automation
+
+Ansible is also used for certificate lifecycle management. The certificate automation checks certificate expiration, 
+
+generates replacement keys and CSRs when required, uses the Intermediate CA to issue replacement certificates, updates the Kubernetes TLS Secret and verifies HTTPS before promoting the new certificate.
+
+---
+
 ## Lessons Learned
 
 One thing this project has taught me is that automation isn't just about saving time.
@@ -238,7 +247,6 @@ Other areas for future improvement include:
 - More reusable variables
 - Improved inventory management
 - Backup automation
-- Integration with certificate lifecycle automation
 
 As the homelab grows, I'd like the automation to become more reusable rather than simply adding larger and larger playbooks.
 
