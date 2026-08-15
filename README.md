@@ -105,4 +105,10 @@ As the homelab evolves, so will this documentation.
 
 ## Feedback
 
-If you have suggestions or see something that could be improved, I'd be happy to hear your feedback.
+## Feedback
+
+Feedback and suggestions are welcome.
+
+If you spot something that could be improved, feel free to open an issue in this repository.
+
+For professional enquiries, you can also reach me through my LinkedIn profile: https://www.linkedin.com/in/kent-thylstrup-adel/
