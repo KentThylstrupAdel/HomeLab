@@ -20,3 +20,27 @@ Automated Certificate Issuance
         ├── Grafana
         ├── Argo CD
         └── Future Services
+
+Then I'd change **Planned Improvements** slightly so it becomes more of a progress tracker:
+
+```markdown
+## PKI Roadmap
+
+### Implemented
+
+- ✅ Root Certificate Authority
+- ✅ Intermediate Certificate Authority
+- ✅ Certificate chain verification
+- ✅ Service certificate for `grafana.homelab`
+- ✅ Kubernetes TLS Secret
+- ✅ HTTPS through Traefik
+- ✅ Client trust configuration
+
+### Next Steps
+
+- ⏳ Certificate expiration monitoring
+- ⏳ Automated certificate renewal
+- ⏳ Automatic Kubernetes Secret updates
+- ⏳ Additional service certificates
+- ⏳ Secure/offline Root CA storage
+- ⏳ Automated validation after certificate replacement
