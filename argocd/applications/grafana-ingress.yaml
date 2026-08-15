@@ -8,6 +8,11 @@ metadata:
 spec:
   ingressClassName: traefik
 
+  tls:
+    - hosts:
+        - grafana.homelab
+      secretName: grafana-tls
+
   rules:
     - host: grafana.homelab
       http:

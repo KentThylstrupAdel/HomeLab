@@ -1,0 +1,23 @@
+---
+- name: Check Grafana certificate expiration
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Check whether Grafana certificate expires within 30 days
+      ansible.builtin.command:
+        cmd: >
+          openssl x509
+          -checkend 2592000
+          -noout
+          -in /etc/ansible/homeLab/homelab-pki/servers/grafana/certs/grafana.cert.pem
+      register: grafana_cert_check
+      changed_when: false
+      failed_when: false
+
+    - name: Show certificate status
+      ansible.builtin.debug:
+        msg: >-
+          Grafana certificate:
+          {{ 'Renewal required' if grafana_cert_check.rc == 1 else 'Valid for more than 30 days' }}
