@@ -10,62 +10,88 @@ There's still plenty to learn, but I'd rather build that knowledge gradually tha
 
 ---
 
-## Project Progress
+## Current Progress
 
-The homelab has grown one step at a time, with each milestone building on the previous one. While some parts are already in daily use, others are intentionally planned for the future as I continue learning.
+The homelab has grown one step at a time, with each capability building on the previous ones.
 
-### ✅ Current Milestones
+Rather than separating completed work from future milestones, the current state of each area is tracked below. This makes it easier to see both what is already working and where I plan to expand the platform next.
 
-* [x] Build a Kubernetes cluster
-* [x] Configure Ansible for platform management
-* [x] Automate server configuration
-* [x] Store infrastructure in Git
-* [x] Create a CI pipeline with GitHub Actions
-* [x] Deploy applications using Argo CD (GitOps)
-* [x] Deploy Grafana as the foundation for monitoring
-* [x] Document the platform architecture
-* [x] Build this portfolio repository
-* [X] Health check playbook
-* [X] Maintenance workflow
+### Infrastructure & Ansible
 
-### 🎯 Next Milestones
+- [x] Configure Ansible for platform management
+- [x] Automate server configuration
+- [x] Health check playbook
+- [x] Maintenance workflow
+- [ ] Bootstrap automation
+- [ ] Worker node lifecycle
+- [ ] Backup automation
 
-#### Ansible Updates
-* [ ] Bootstrap automation
-* [ ] Worker node lifecycle
-* [ ] Certificate monitoring
-* [ ] Backup automation
+### Kubernetes
 
-#### Monitoring & Observability
+- [x] Build a Kubernetes cluster with k3s
+- [x] Deploy applications using Helm
+- [x] Configure Ingress for internal services
+- [ ] Practice adding and removing worker nodes
+- [ ] Learn StatefulSets and persistent storage
+- [ ] Implement backup and recovery
+- [ ] Explore high availability
+- [ ] Explore Kubernetes Operators
 
-* [X] Build useful Grafana dashboards
-* [X] Deploy Prometheus
-* [ ] Deploy Loki
-* [ ] Configure Alertmanager
-* [ ] Create basic alerts
+### CI/CD & GitOps
 
-#### Networking
+- [x] Store infrastructure and configuration in Git
+- [x] Create CI validation with GitHub Actions
+- [x] Deploy applications using Argo CD
+- [x] Use GitOps as part of the deployment workflow
+- [ ] Expand GitHub Actions validation
+- [ ] Add security scanning
+- [ ] Validate container images
+- [ ] Explore more advanced Argo CD features
 
-* [ ] Explore VLAN segmentation
-* [ ] Configure internal DNS
-* [ ] Add TLS for internal services
-* [ ] Improve Ingress configuration
-* [ ] Expand network monitoring
+### Monitoring & Observability
 
-#### CI/CD & GitOps
+- [x] Deploy Grafana
+- [x] Deploy Prometheus
+- [x] Build an operational Grafana dashboard
+- [x] Monitor Kubernetes node and Pod health
+- [x] Monitor CPU, memory and disk usage
+- [ ] Deploy Loki
+- [ ] Configure Alertmanager
+- [ ] Create basic alerts
+- [ ] Expand platform health monitoring
 
-* [ ] Expand GitHub Actions validation
-* [ ] Add security scanning
-* [ ] Validate container images
-* [ ] Explore more advanced Argo CD features
+### Networking
 
-#### Kubernetes
+- [x] Configure internal service access through Ingress
+- [x] Provide local hostname access to platform services
+- [x] Enable HTTPS for Grafana
+- [ ] Explore VLAN segmentation
+- [ ] Improve internal DNS
+- [ ] Improve Ingress configuration
+- [ ] Expand network monitoring
 
-* [ ] Deploy additional applications
-* [ ] Explore Kubernetes Operators
-* [ ] Learn StatefulSets and persistent storage
-* [ ] Implement backup and recovery
-* [ ] Explore high availability
+### Security & PKI
+
+- [x] Build an internal Root CA
+- [x] Build an Intermediate CA
+- [x] Establish a Root → Intermediate → Service trust chain
+- [x] Issue a TLS certificate for `grafana.homelab`
+- [x] Deploy the certificate through a Kubernetes TLS Secret
+- [x] Establish trusted HTTPS from the client
+- [ ] Secure/offline Root CA storage and backup
+- [ ] Certificate expiration monitoring
+- [ ] Automate certificate renewal
+- [ ] Automate certificate deployment
+- [ ] Add security scanning
+- [ ] Explore secrets management
+
+### Documentation
+
+- [x] Document the platform architecture
+- [x] Document implemented platform components
+- [x] Maintain diagrams of the platform architecture
+- [x] Build the repository as a technical portfolio
+- [ ] Continue updating documentation as the platform evolves
 
 ---
 
