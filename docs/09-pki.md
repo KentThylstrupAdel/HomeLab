@@ -1,28 +1,22 @@
-# Public Key Infrastructure
+## PKI Vision
 
-## Purpose
+The current PKI implementation is intentionally manual.
 
-As the homelab has grown, I wanted to gain practical experience with Public Key Infrastructure (PKI) and certificate management.
+My first goal was to understand the complete certificate lifecycle before attempting to automate it. This included creating the Certificate Authorities, generating private keys and Certificate Signing Requests, signing certificates, verifying the certificate chain and finally deploying a trusted certificate to a real service.
 
-Rather than only using automatically generated or self-signed service certificates, I built a small internal Certificate Authority hierarchy and used it to provide trusted HTTPS access to Grafana.
+Grafana is the first service using the internal PKI, but the longer-term goal is to make certificate management a platform capability rather than something configured individually for each application.
 
-The goal was to understand how certificates, Certificate Authorities, trust chains and private keys work together in practice.
-
----
-
-## PKI Architecture
-
-The internal PKI consists of a Root Certificate Authority, an Intermediate Certificate Authority and certificates issued to individual services.
+The intended direction is:
 
 ```text
-HomeLab Root CA
+Internal Root CA
         │
-        │ signs
         ▼
-HomeLab Intermediate CA
+Intermediate CA
         │
-        │ signs
         ▼
-Service Certificates
+Automated Certificate Issuance
         │
-        └── grafana.homelab
+        ├── Grafana
+        ├── Argo CD
+        └── Future Services
