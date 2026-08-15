@@ -21,7 +21,6 @@ Automated Certificate Issuance
         ├── Argo CD
         └── Future Services
 
-Then I'd change **Planned Improvements** slightly so it becomes more of a progress tracker:
 
 ```markdown
 ## PKI Roadmap
