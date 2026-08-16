@@ -105,8 +105,8 @@ As the platform grows, I'll introduce more advanced networking features when the
 
 ## Related Documentation
 
-The final chapter outlines where I'd like to take the homelab next and the technologies I plan to explore.
+Next Step is my implementation of Certificates through my PKI infrastructure. To read more about that
 
-Continue with:
+continue with:
 
-* [09-roadmap.md](09-roadmap.md)
+* [09-pki.md](09-pki.md)
