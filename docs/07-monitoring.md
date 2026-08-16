@@ -51,7 +51,7 @@ This means the dashboard itself is treated as part of the platform configuration
 ## Monitoring Architecture
 
 <p align="center">
-  <img src="images/monitoring-stack.png"
+  <img src="images/monitoring-stack1.png"
        alt="Monitoring and Observability Stack"
        width="900">
 </p>
