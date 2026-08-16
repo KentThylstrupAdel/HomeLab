@@ -133,3 +133,12 @@ Rather than treating certificate renewal as a single command, I now see it as a 
 The implementation also highlighted the relationship between automation and security.
 
 Removing manual interaction can improve reliability, but unattended automation also requires credentials to be available to the automation system. This introduces a security tradeoff that needs to be considered when designing the solution.
+
+---
+
+## Related Documentation
+
+Last step of my HomeLab implementation is having a view of the roadmap, to see what the current state is, and what is planned for future work:
+
+
+* [20-roadmap.md](20-roadmap.md)
