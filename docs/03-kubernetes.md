@@ -68,7 +68,7 @@ This gives me a workflow that's much closer to how many Platform Engineering tea
 
 When I interact with Kubernetes, I mainly use:
 
-* `kubectl`
+* kubectl
 * Helm
 * Argo CD
 
