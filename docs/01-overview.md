@@ -211,6 +211,7 @@ The documentation is split into individual topics so each document focuses on on
 Whenever I work on the platform, I generally try to follow a few simple ideas:
 
 - Keep things simple.
+- Build it manually before automating.
 - Automate repetitive work.
 - Avoid unnecessary complexity.
 - Understand a technology before adding another one.
