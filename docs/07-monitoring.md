@@ -16,7 +16,7 @@ Prometheus collects metrics from the Kubernetes cluster, while Grafana is used t
 
 Grafana is exposed through Traefik Ingress at:
 
-`http://grafana.homelab`
+`https://grafana.homelab`
 
 This address is only available inside my air-gapped homelab network and cannot be accessed externally.
 
