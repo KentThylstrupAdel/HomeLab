@@ -222,6 +222,7 @@ Whenever I work on the platform, I generally try to follow a few simple ideas:
 I don't expect the homelab to ever be completely "finished".
 
 As I learn new technologies and gain more experience, the platform will continue to evolve.
+It is also not intended to be a static Platform, so if needed, it will be torn down and rebuilt.
 
 ---
 
