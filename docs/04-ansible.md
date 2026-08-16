@@ -15,7 +15,7 @@ As the platform has developed, Ansible has also become an operational tool for h
 ## What Ansible Manages
 
 <p align="center">
-  <img src="images/ansible-management.png"
+  <img src="images/ansible-management1.png"
        alt="Ansible Infrastructure Management"
        width="900">
 </p>
