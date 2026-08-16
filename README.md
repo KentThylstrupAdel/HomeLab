@@ -105,8 +105,6 @@ As the homelab evolves, so will this documentation.
 
 ## Feedback
 
-## Feedback
-
 Feedback and suggestions are welcome.
 
 If you spot something that could be improved, feel free to open an issue in this repository.
