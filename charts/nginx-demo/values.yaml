@@ -19,9 +19,18 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - NET_BIND_SERVICE
 
 service:
   type: ClusterIP
@@ -62,8 +71,17 @@ autoscaling:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
-volumes: []
-volumeMounts: []
+volumes:
+  - name: nginx-cache
+    emptyDir: {}
+  - name: nginx-run
+    emptyDir: {}
+
+volumeMounts:
+  - name: nginx-cache
+    mountpPath: /var/cache/nginx
+  - name: nginx-run
+    mountPath: /var/run
 
 nodeSelector: {}
 tolerations: []
