@@ -13,7 +13,7 @@ Using GitHub Actions means I can catch many of those problems automatically inst
 ## CI Workflow
 
 <p align="center">
-  <img src="images/infrastructure-validation-pipeline1.png"
+  <img src="images/infrastructure-validation-pipeline.png"
        alt="Continuous Integration Workflow"
        width="900">
 </p>
