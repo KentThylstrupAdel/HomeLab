@@ -88,6 +88,7 @@ For a deeper technical look, continue through the documentation:
 - Ubuntu Server
 - Bazzite Linux
 - Traefik
+- Trivy
 
 ---
 
