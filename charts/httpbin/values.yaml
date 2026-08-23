@@ -159,7 +159,7 @@ volumes:
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: foo
+  - name: tmp
     mountPath: /tmp
 #   readOnly: true
 
