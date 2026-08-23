@@ -84,6 +84,7 @@ The initial scans identified issues such as:
 * Workloads using privileged ports
 
 The `nginx-demo` Helm deployment was used as the first workload for remediation.
+The `httpbin` workload was subsequently hardened using the same approach. This included resource limits, restricted privileges, a read-only root filesystem with an explicit writable `/tmp` volume, and pinning the container image by digest rather than using the mutable `latest` tag.
 
 Security controls were introduced incrementally, including:
 
