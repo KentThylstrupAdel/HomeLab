@@ -1,36 +1,37 @@
-# 10 - Scripting and Automation
+# Scripting and Automation
 
-## Overview
+## Purpose
 
-This section documents scripting and automation developed as part of the HomeLab.
+Scripting is being introduced into the homelab to automate operational tasks
+that do not necessarily fit naturally into Ansible, Kubernetes manifests or
+other existing automation tooling.
 
-Python is a developing skill in this project. Rather than focusing on standalone
-programming exercises, the goal is to use Python to solve practical infrastructure
-and operational tasks within the HomeLab.
-
-The scripts are located in the [`scripts/`](../scripts/) directory.
+Python is currently a developing skill for me. The focus is on learning it
+through practical infrastructure tasks rather than standalone programming
+exercises.
 
 ## Current Scripts
 
 ### Kubernetes Health Check
 
-**Script:** `k8s_status.py`
+**Location:** `scripts/k8s_status.py`
 
-The Kubernetes health check is the first Python utility developed for the HomeLab.
-It uses `kubectl` to retrieve information from the Kubernetes cluster as JSON and
-evaluates the health of nodes and pods.
+The Kubernetes health check is the first Python utility developed for the
+homelab.
 
-The script currently supports:
+It queries the Kubernetes cluster through `kubectl`, retrieves cluster data
+as JSON and evaluates the health of nodes and pods.
 
-- Checking the health of all Kubernetes nodes and pods
-- Checking nodes only
-- Checking pods only
-- Checking pods within a specific namespace
-- Listing available namespaces
-- Recognising successfully completed Kubernetes Jobs
-- Returning an exit code indicating whether the health check succeeded or failed
+Current functionality includes:
 
-### Usage
+- Cluster-wide node and pod health checks
+- Individual node or pod checks
+- Pod health checks for a specific namespace
+- Namespace discovery
+- Handling of successfully completed Kubernetes Jobs
+- Exit codes for use by other automation
+
+## Usage
 
 Check the complete cluster:
 
@@ -44,35 +45,39 @@ Check pods only:
 
     python scripts/k8s_status.py --pods
 
-Check pods in a specific namespace:
+Check a specific namespace:
 
     python scripts/k8s_status.py --namespace monitoring
 
-List available namespaces:
+List namespaces:
 
     python scripts/k8s_status.py --namespaces
 
-Display available options:
+Show available options:
 
     python scripts/k8s_status.py --help
 
-## Technical Approach
+## Implementation
 
-The script currently interacts with Kubernetes by executing `kubectl` commands
-through Python's `subprocess` module.
+The script uses Python's `subprocess` module to execute `kubectl` commands
+and requests Kubernetes output in JSON format.
 
-Kubernetes data is requested in JSON format and parsed in Python. The resulting
-data structures are then used to determine node and pod health.
+The JSON responses are parsed in Python and evaluated to determine resource
+health.
 
-The script also uses exit codes so that its result can later be consumed by other
-automation or monitoring tools.
+Node health is determined from the Kubernetes `Ready` condition. Pod health
+is determined from container readiness, while successfully completed Jobs
+are treated as healthy.
 
-## Current Scope
+The script returns a non-zero exit code when a health check fails, allowing
+it to be used by other automation or CI/CD processes in the future.
 
-This is an early step toward using scripting as part of the HomeLab's broader
-automation approach.
+## Development
 
-The current implementation intentionally remains relatively simple while I build
-experience with Python and infrastructure scripting. Future scripts and
-improvements will be added when they solve an actual operational or automation
-need within the HomeLab.
+This is the first step toward using Python for infrastructure scripting
+within the homelab.
+
+The current implementation is intentionally relatively simple while I
+develop practical experience with Python. Future scripting will be added
+when there is an operational problem where scripting provides an appropriate
+solution.
