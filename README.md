@@ -69,6 +69,7 @@ For a deeper technical look, continue through the documentation:
 | 07 | Monitoring and observability |
 | 08 | Network |
 | 09 | PKI and certificate management |
+| 10 | Scripting and Automation |
 | 20 | Roadmap and project progress |
 
 ---
@@ -89,6 +90,7 @@ For a deeper technical look, continue through the documentation:
 - Bazzite Linux
 - Traefik
 - Trivy
+- Python
 
 ---
 
