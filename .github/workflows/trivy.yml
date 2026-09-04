@@ -25,6 +25,7 @@ jobs:
         with:
           scan-type: fs
           scan-ref: .
+          scanners: vuln,misconfig,secret
           format: table
           severity: HIGH,CRITICAL
           ignore-unfixed: true
